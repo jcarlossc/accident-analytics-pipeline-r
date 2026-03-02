@@ -1,0 +1,17 @@
+data:
+  raw: "data/data_raw/acidentes_recife_2019.csv"
+  processed: "data/data_processed"
+
+src:
+  ingest: "src/ingestion/data_ingestion"
+  standardization: "src/data_standardization.R"
+  clean: "src/cleaning/data_clean.R"
+  validation: "src/validation/data_validation.R"
+  
+config:
+  logger: "utils/logger/logger.R"
+  handler: "utils/error/error_handler.R"
+  helper: "utils/helpers/helpers.R"
+  
+logs:
+  file: "logs/pipeline.log"
