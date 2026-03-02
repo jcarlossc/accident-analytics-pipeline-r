@@ -1,0 +1,9 @@
+logging:
+  level: "INFO"
+  console: true
+  overwrite: false
+
+format:
+  timestamp: true
+  timezone: "America/Recife"
+  format: "[{time}] {level} - {msg}"
