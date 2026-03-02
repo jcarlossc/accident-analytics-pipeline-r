@@ -1,0 +1,9 @@
+environment: "development"
+
+pipeline:
+  fail_on_error: true
+  save_intermediate: true
+  
+retry:
+  tentativas: 3
+  espera_segundos: 5  
