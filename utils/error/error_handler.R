@@ -3,6 +3,7 @@
 # Projeto: Sistema de Ingestão, Padronização, Limpeza e 
 # Validação de Dados de Acidentes - Recife - 2019
 # Autor: Carlos da Costa
+# Localização: Recife, Pernambuco - Brasil
 # Data de criação: 03/03/2026
 # Última modificação: 03/03/2026
 # Versão: 1.0.0
