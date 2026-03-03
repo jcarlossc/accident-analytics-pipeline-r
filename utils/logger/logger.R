@@ -2,7 +2,7 @@
 # Arquivo: logger.R
 # Projeto: Sistema de Ingestão, Padronização, Limpeza e 
 # Validação de Dados de Acidentes - Recife - 2019
-# Autor: José Carlos Soares da Costa
+# Autor: Carlos da costa
 # Localização: Recife, Pernambuco - Brasil
 # Data de criação: 03/03/2026
 # Última atualização: 03/03/2026
@@ -60,6 +60,9 @@
 # config.yaml e documentada no README do projeto.
 # ======================================================================
 
+# --------------------------------------------------------
+# 1. Pacotes utilizados
+# --------------------------------------------------------
 library(logger)
 library(glue)
 library(yaml)
@@ -69,7 +72,7 @@ setup_logger <- function() {
   tryCatch({
     
     # --------------------------------------------------------
-    # 1. Ler arquivos de configuração
+    # 2. Ler arquivos de configuração
     # --------------------------------------------------------
     config_path <- suppressWarnings(
       yaml::read_yaml("config/paths.yaml")
@@ -80,7 +83,7 @@ setup_logger <- function() {
     )  
     
     # --------------------------------------------------------
-    # 2. Validar campos obrigatórios
+    # 3. Validar campos obrigatórios
     # --------------------------------------------------------
     if (is.null(config_logging$logging$level)) {
       stop("Campo logging.level não encontrado em logging.yaml")
@@ -91,7 +94,7 @@ setup_logger <- function() {
     }
     
     # --------------------------------------------------------
-    # 3. Configurar logger
+    # 4. Configurar logger
     # --------------------------------------------------------
     # Nível mínimo de log
     log_threshold(config_logging$logging$level)
@@ -111,7 +114,7 @@ setup_logger <- function() {
   },
   
   # ----------------------------------------------------------
-  # 4. Tratamento de ERRO
+  # 5. Tratamento de ERRO
   # ----------------------------------------------------------
   error = function(e) {
     
@@ -129,14 +132,14 @@ setup_logger <- function() {
   },
   
   # ----------------------------------------------------------
-  # 5. Avisos
+  # 6. Avisos
   # ----------------------------------------------------------
   warning = function(w) {
     message("Aviso no setup_logger: ", w$message)
   },
   
   # ----------------------------------------------------------
-  # 6. Sempre executa
+  # 7. Sempre executa
   # ----------------------------------------------------------
   finally = {
     message("setup_logger finalizado.")
