@@ -15,6 +15,7 @@ source(config_paths$config$logger)
 source(config_paths$config$handler)
 source(config_paths$config$helper)
 source(config_paths$src$ingest)
+source(config_paths$src$standardization)
 
 # -------------------------------------------------
 # 3. Inicializar logger
@@ -24,9 +25,9 @@ setup_logger()
 # -------------------------------------------------
 # 4. Função principal do pipeline
 # -------------------------------------------------
-#main <- function() {
+main <- function() {
 
-  log_info("Iniciando execução do pipeline - main.R")
+  log_info("### Iniciando execução do pipeline - main.R ###")
 
   tryCatch({
   
@@ -56,13 +57,28 @@ setup_logger()
       stop(e)
   })
     
+    tryCatch({
+      
+      log_info("Iniciando padronização de dados")
+      
+      # --------------------------------------------------------
+      # 7. 
+      # -------------------------------------------------------- 
+      data_standard_tibble <- standardization_data(data_ingest_tibble)
+      
+      log_info("Padronização de dados finalizada")
+      
+    }, error = function(e) {
+      handle_error(e, "Padronização")
+      stop(e)
+    })
     
     
-    log_info("Término da execução do pipeline - main.R")
-})
+    
+    log_info("### Término da execução do pipeline - main.R ###")
+  })
 
-#}
-data_ingest_tibble
-class(data_ingest_tibble)
+}
 
-#main()
+
+main()
