@@ -1,0 +1,8 @@
+
+[2026-03-04 14:24:30.514628] INFO - Logger configurado com sucesso.
+[2026-03-04 14:24:30.545154] INFO - Iniciando execução do pipeline - main.R
+[2026-03-04 14:24:30.586227] INFO - Iniciando ingentão de dados
+[2026-03-04 14:24:30.671473] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
+[2026-03-04 14:24:33.869328] INFO - Arquivo lido com sucesso.
+[2026-03-04 14:24:33.875643] INFO - Ingentão de dados finalizada
+[2026-03-04 14:24:33.885442] INFO - Término da execução do pipeline - main.R

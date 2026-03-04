@@ -3,7 +3,7 @@ data:
   processed: "data/data_processed"
 
 src:
-  ingest: "src/ingestion/data_ingestion"
+  ingest: "src/ingestion/data_ingest.R"
   standardization: "src/data_standardization.R"
   clean: "src/cleaning/data_clean.R"
   validation: "src/validation/data_validation.R"
