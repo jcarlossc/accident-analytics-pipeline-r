@@ -1,14 +1,22 @@
-
-[2026-03-04 15:07:45.350874] INFO - Logger configurado com sucesso.
-[2026-03-04 15:07:45.54274] INFO - ### Iniciando execução do pipeline - main.R ###
-[2026-03-04 15:07:45.550566] INFO - Iniciando ingentão de dados
-[2026-03-04 15:07:45.886937] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
-[2026-03-04 15:07:46.721521] INFO - Arquivo lido com sucesso.
-[2026-03-04 15:07:46.727821] INFO - Ingentão de dados finalizada
-[2026-03-04 15:07:46.739582] INFO - Iniciando padronização de dados
-[2026-03-04 15:07:46.883595] INFO - Iniciando padronização das colunas e conversão de tipos
-[2026-03-04 15:07:46.888878] INFO - Linhas recebidas: 12062
-[2026-03-04 15:07:46.900595] INFO - Nomes de colunas padronizados
-[2026-03-04 15:07:48.116338] INFO - Tipos convertidos e textos padronizados
-[2026-03-04 15:07:48.123302] INFO - Padronização de dados finalizada
-[2026-03-04 15:07:48.129982] INFO - ### Término da execução do pipeline - main.R ###
+[2026-03-06 14:44:03.162369] INFO - Logger configurado com sucesso.
+[2026-03-06 14:44:03.783584] INFO - ### Iniciando execução do pipeline - main.R ###
+[2026-03-06 14:44:03.791313] INFO - Iniciando ingentão de dados
+[2026-03-06 14:44:03.897045] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
+[2026-03-06 14:44:05.077986] INFO - Arquivo lido com sucesso.
+[2026-03-06 14:44:05.087006] INFO - Ingentão de dados finalizada
+[2026-03-06 14:44:05.093904] INFO - Iniciando padronização de dados
+[2026-03-06 14:44:05.57533] INFO - Iniciando padronização das colunas e conversão de tipos
+[2026-03-06 14:44:05.588145] INFO - Linhas recebidas: 12062
+[2026-03-06 14:44:05.605227] INFO - Nomes de colunas padronizados
+[2026-03-06 14:44:06.472721] INFO - Tipos convertidos e textos padronizados
+[2026-03-06 14:44:06.478727] INFO - Padronização de dados finalizada
+[2026-03-06 14:44:06.488669] INFO - Iniciando limpeza de dados
+[2026-03-06 14:44:07.194896] INFO - Iniciando limpeza global
+[2026-03-06 14:44:07.200678] INFO - Linhas: 12062
+[2026-03-06 14:44:07.205779] INFO - Colunas: 42
+[2026-03-06 14:44:07.749027] INFO - Valores inválidos convertidos para NA
+[2026-03-06 14:44:08.872135] INFO - NA por coluna após limpeza:
+[2026-03-06 14:44:08.877838] INFO - id 0 | data 0 | hora 0 | natureza_acidente 0 | situacao 0 | bairro 0 | endereco 0 | numero 0 | detalhe_endereco_acidente 0 | complemento 0 | endereco_cruzamento 0 | numero_cruzamento 0 | referencia_cruzamento 0 | bairro_cruzamento 0 | num_semaforo 0 | sentido_via 0 | tipo 0 | descricao 0 | auto 0 | moto 0 | ciclom 0 | ciclista 0 | pedestre 0 | onibus 0 | caminhao 0 | viatura 0 | outros 0 | vitimas 0 | vitimasfatais 0 | acidente_verificado 0 | tempo_clima 0 | situacao_semaforo 0 | sinalizacao 0 | condicao_via 0 | conservacao_via 0 | ponto_controle 0 | situacao_placa 0 | velocidade_max_via 0 | mao_direcao 0 | divisao_via1 0 | divisao_via2 0 | divisao_via3 0
+[2026-03-06 14:44:08.888181] INFO - Limpeza concluída
+[2026-03-06 14:44:08.893937] INFO - Limpeza de dados finalizada
+[2026-03-06 14:44:08.901949] INFO - ### Término da execução do pipeline - main.R ###
