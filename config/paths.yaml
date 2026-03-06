@@ -1,6 +1,6 @@
 data:
   raw: "data/data_raw/acidentes_recife_2019.csv"
-  processed: "data/data_processed"
+  processed: "data/data_processed/acidentes_recife_2019_processados.csv"
 
 src:
   ingest: "src/ingestion/data_ingest.R"

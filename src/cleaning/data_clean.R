@@ -124,7 +124,7 @@ clean_data <- function(dados) {
     dados <- dados |>
       mutate(
         across(where(is.character), \(x)
-               ifelse(is.na(x), "NAO INFORMADO", x)
+               ifelse(is.na(x), "Não informado", x)
         )
       )
     

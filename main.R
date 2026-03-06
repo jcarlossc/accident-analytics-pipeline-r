@@ -17,6 +17,7 @@ source(config_paths$config$helper)
 source(config_paths$src$ingest)
 source(config_paths$src$standardization)
 source(config_paths$src$clean)
+source(config_paths$src$validation)
 
 # -------------------------------------------------
 # 3. Inicializar logger
@@ -95,7 +96,47 @@ main <- function() {
       log_info("Limpeza de dados finalizada")
       
     }, error = function(e) {
-      handle_error(e, "Padronização")
+      handle_error(e, "Limpeza")
+      stop(e)
+    })
+    
+    tryCatch({
+      # =======================================================
+      # 2. SUB-PIPELINE (Validação dos dados)
+      # =======================================================
+      
+      log_info("Iniciando validação de dados")
+      
+      # --------------------------------------------------------
+      # 7. 
+      # -------------------------------------------------------- 
+      data_validation <- validate_data(data_clean_tibble)
+      
+      log_info("Validação de dados finalizada")
+      
+    }, error = function(e) {
+      handle_error(e, "Validação")
+      stop(e)
+    })
+    
+    tryCatch({
+      # =======================================================
+      # 2. SUB-PIPELINE (Salva dados processados no formato csv)
+      # =======================================================
+      
+      log_info("Iniciando persistência dos dados")
+      
+      # ------------------------------------------------------
+      # 3️⃣ Salvar CSV
+      # ------------------------------------------------------
+      if(data_validation == TRUE){
+        readr::write_csv(data_clean_tibble, config_paths$data$processed)
+      }
+      
+      log_info("Persistência de dados finalizada")
+      
+    }, error = function(e) {
+      handle_error(e, "Falha ao salvar dados validados")
       stop(e)
     })
     
