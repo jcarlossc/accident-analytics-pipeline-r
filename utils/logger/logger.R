@@ -67,12 +67,15 @@ library(logger)
 library(glue)
 library(yaml)
 
+# ------------------------------------------------------
+# 2. Função responsável pela configuração do log
+# ------------------------------------------------------
 setup_logger <- function() {
   
   tryCatch({
     
     # --------------------------------------------------------
-    # 2. Ler arquivos de configuração
+    # 3. Ler arquivos de configuração
     # --------------------------------------------------------
     config_path <- suppressWarnings(
       yaml::read_yaml("config/paths.yaml")
@@ -83,7 +86,7 @@ setup_logger <- function() {
     )  
     
     # --------------------------------------------------------
-    # 3. Validar campos obrigatórios
+    # 4. Validar campos obrigatórios
     # --------------------------------------------------------
     if (is.null(config_logging$logging$level)) {
       stop("Campo logging.level não encontrado em logging.yaml")
@@ -94,7 +97,7 @@ setup_logger <- function() {
     }
     
     # --------------------------------------------------------
-    # 4. Configurar logger
+    # 5. Configurar logger
     # --------------------------------------------------------
     # Nível mínimo de log
     log_threshold(config_logging$logging$level)
@@ -114,7 +117,7 @@ setup_logger <- function() {
   },
   
   # ----------------------------------------------------------
-  # 5. Tratamento de ERRO
+  # 6. Tratamento de ERRO
   # ----------------------------------------------------------
   error = function(e) {
     
@@ -132,16 +135,12 @@ setup_logger <- function() {
   },
   
   # ----------------------------------------------------------
-  # 6. Avisos
+  # 7. Avisos
   # ----------------------------------------------------------
   warning = function(w) {
     message("Aviso no setup_logger: ", w$message)
-  },
+  }
   
-  # ----------------------------------------------------------
-  # 7. Sempre executa
-  # ----------------------------------------------------------
-  finally = {
-    message("setup_logger finalizado.")
-  })
+  )
+  
 }

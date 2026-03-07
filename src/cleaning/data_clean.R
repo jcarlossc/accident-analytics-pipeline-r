@@ -76,6 +76,9 @@ library(lubridate)
 library(hms)
 library(logger)
 
+# ------------------------------------------------------
+# 2. Função responsável pela limpeza dos dados
+# ------------------------------------------------------
 clean_data <- function(dados) {
   
   log_info("Iniciando limpeza global")
@@ -94,8 +97,8 @@ clean_data <- function(dados) {
     if (nrow(dados) == 0)
       stop("Data frame vazio")
     
-    log_info(paste("Linhas:", nrow(dados)))
-    log_info(paste("Colunas:", ncol(dados)))
+    log_info(paste("Linhas recebidas:", nrow(dados)))
+    log_info(paste("Número de colunas:", ncol(dados)))
     
     # ------------------------------------------------------
     # 3. Padronizar valores inválidos
@@ -133,25 +136,6 @@ clean_data <- function(dados) {
       mutate(
         across(where(is.numeric), \(x)
                replace(x, is.na(x), 0)
-        )
-      )
-    
-    # Date 
-    dados <- dados |>
-      mutate(
-        across(where(is.character) & matches("data"),
-               \(x) suppressWarnings(ymd(x))
-        )
-      )
-    
-    # Hora 
-    dados <- dados |>
-      mutate(
-        across(where(is.character) & matches("hora"),
-               \(x) suppressWarnings(parse_date_time(
-                 x,
-                 orders = c("HMS","HM","MS")
-               )) |> as_hms()
         )
       )
     

@@ -68,22 +68,28 @@
 library(logger)
 library(hms)
 
-validate_data <- function(dados) {
+# ------------------------------------------------------
+# 2. Função responsável pela validação dos dados
+# ------------------------------------------------------
+validate_data <- function(valid_data) {
   
-  log_info("Iniciando validação")
+  log_info("Iniciando validação dos dados")
   
   tryCatch({
     
     # -----------------------------------
-    # 1️⃣ Verificar classes
+    # 3. Verificar classes
     # -----------------------------------
-    if (!inherits(dados$data, "Date"))
+    if (!inherits(valid_data$data, "Date"))
       stop("Coluna 'data' não é Date")
     
-    if (!inherits(dados$hora, "hms"))
+    if (!inherits(valid_data$hora, "hms"))
       stop("Coluna 'hora' não é hms")
-    
-    colunas_numericas <- c(
+
+    # -----------------------------------
+    # 4. Verificar classes
+    # -----------------------------------
+    numeric_column <- c(
       "auto",
       "moto",
       "ciclom",
@@ -97,39 +103,39 @@ validate_data <- function(dados) {
       "vitimasfatais"
     )
     
-    colunas_invalidas <- colunas_numericas[
-      !sapply(dados[colunas_numericas], is.numeric)
+    invalid_columns <- numeric_column[
+      !sapply(valid_data[numeric_column], is.numeric)
     ]
     
-    if (length(colunas_invalidas) > 0) {
+    if (length(invalid_columns) > 0) {
       stop(paste(
         "Colunas não numéricas:",
-        paste(colunas_invalidas, collapse = ", ")
+        paste(invalid_columns, collapse = ", ")
       ))
     }
     
     # -----------------------------------
-    # 2️⃣ Verificar valores negativos
+    # 5. Verificar valores negativos
     # -----------------------------------
-    if (any(dados[colunas_numericas] < 0, na.rm = TRUE))
+    if (any(valid_data[numeric_column] < 0, na.rm = TRUE))
       stop("Existem vítimas negativas")
     
     # -----------------------------------
-    # 3️⃣ Intervalo de hora
+    # 6. Intervalo de hora
     # -----------------------------------
-    if (any(dados$hora > hms::as_hms("23:59:59"), na.rm = TRUE))
+    if (any(valid_data$hora > hms::as_hms("23:59:59"), na.rm = TRUE))
       stop("Hora inválida detectada")
     
     # -----------------------------------
-    # 4️⃣ Datas futuras
+    # 7. Datas futuras
     # -----------------------------------
-    if (any(dados$data > Sys.Date(), na.rm = TRUE))
+    if (any(valid_data$data > Sys.Date(), na.rm = TRUE))
       stop("Data futura detectada")
     
     # -----------------------------------
-    # 5️⃣ Percentual de NA
+    # 8. Percentual de NA
     # -----------------------------------
-    percentual_na <- sapply(dados, function(x)
+    percentual_na <- sapply(valid_data, function(x)
       mean(is.na(x)) * 100
     )
     
@@ -143,6 +149,9 @@ validate_data <- function(dados) {
     
     return(TRUE)
     
+  # ----------------------------------------------------------
+  # 9. Tratamento de ERRO
+  # ----------------------------------------------------------
   }, error = function(e) {
     log_error("Erro na validação")
     log_error(e$message)

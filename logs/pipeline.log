@@ -1,245 +1,30 @@
-[2026-03-06 14:44:03.162369] INFO - Logger configurado com sucesso.
-[2026-03-06 14:44:03.783584] INFO - ### Iniciando execução do pipeline - main.R ###
-[2026-03-06 14:44:03.791313] INFO - Iniciando ingentão de dados
-[2026-03-06 14:44:03.897045] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
-[2026-03-06 14:44:05.077986] INFO - Arquivo lido com sucesso.
-[2026-03-06 14:44:05.087006] INFO - Ingentão de dados finalizada
-[2026-03-06 14:44:05.093904] INFO - Iniciando padronização de dados
-[2026-03-06 14:44:05.57533] INFO - Iniciando padronização das colunas e conversão de tipos
-[2026-03-06 14:44:05.588145] INFO - Linhas recebidas: 12062
-[2026-03-06 14:44:05.605227] INFO - Nomes de colunas padronizados
-[2026-03-06 14:44:06.472721] INFO - Tipos convertidos e textos padronizados
-[2026-03-06 14:44:06.478727] INFO - Padronização de dados finalizada
-[2026-03-06 14:44:06.488669] INFO - Iniciando limpeza de dados
-[2026-03-06 14:44:07.194896] INFO - Iniciando limpeza global
-[2026-03-06 14:44:07.200678] INFO - Linhas: 12062
-[2026-03-06 14:44:07.205779] INFO - Colunas: 42
-[2026-03-06 14:44:07.749027] INFO - Valores inválidos convertidos para NA
-[2026-03-06 14:44:08.872135] INFO - NA por coluna após limpeza:
-[2026-03-06 14:44:08.877838] INFO - id 0 | data 0 | hora 0 | natureza_acidente 0 | situacao 0 | bairro 0 | endereco 0 | numero 0 | detalhe_endereco_acidente 0 | complemento 0 | endereco_cruzamento 0 | numero_cruzamento 0 | referencia_cruzamento 0 | bairro_cruzamento 0 | num_semaforo 0 | sentido_via 0 | tipo 0 | descricao 0 | auto 0 | moto 0 | ciclom 0 | ciclista 0 | pedestre 0 | onibus 0 | caminhao 0 | viatura 0 | outros 0 | vitimas 0 | vitimasfatais 0 | acidente_verificado 0 | tempo_clima 0 | situacao_semaforo 0 | sinalizacao 0 | condicao_via 0 | conservacao_via 0 | ponto_controle 0 | situacao_placa 0 | velocidade_max_via 0 | mao_direcao 0 | divisao_via1 0 | divisao_via2 0 | divisao_via3 0
-[2026-03-06 14:44:08.888181] INFO - Limpeza concluída
-[2026-03-06 14:44:08.893937] INFO - Limpeza de dados finalizada
-[2026-03-06 14:44:08.901949] INFO - ### Término da execução do pipeline - main.R ###
-[2026-03-06 15:04:38.644306] INFO - Logger configurado com sucesso.
-[2026-03-06 15:04:39.479043] INFO - ### Iniciando execução do pipeline - main.R ###
-[2026-03-06 15:04:39.489153] INFO - Iniciando ingentão de dados
-[2026-03-06 15:04:39.542609] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
-[2026-03-06 15:04:40.478486] INFO - Arquivo lido com sucesso.
-[2026-03-06 15:04:40.486126] INFO - Ingentão de dados finalizada
-[2026-03-06 15:04:40.493041] INFO - Iniciando padronização de dados
-[2026-03-06 15:04:41.003006] INFO - Iniciando padronização das colunas e conversão de tipos
-[2026-03-06 15:04:41.010273] INFO - Linhas recebidas: 12062
-[2026-03-06 15:04:41.024205] INFO - Nomes de colunas padronizados
-[2026-03-06 15:04:41.958896] INFO - Tipos convertidos e textos padronizados
-[2026-03-06 15:04:41.963777] INFO - Padronização de dados finalizada
-[2026-03-06 15:04:41.970273] INFO - Iniciando limpeza de dados
-[2026-03-06 15:04:42.473699] INFO - Iniciando limpeza global
-[2026-03-06 15:04:42.481104] INFO - Linhas: 12062
-[2026-03-06 15:04:42.488653] INFO - Colunas: 42
-[2026-03-06 15:04:43.165304] INFO - Valores inválidos convertidos para NA
-[2026-03-06 15:04:44.231744] INFO - NA por coluna após limpeza:
-[2026-03-06 15:04:44.24003] INFO - id 0 | data 0 | hora 0 | natureza_acidente 0 | situacao 0 | bairro 0 | endereco 0 | numero 0 | detalhe_endereco_acidente 0 | complemento 0 | endereco_cruzamento 0 | numero_cruzamento 0 | referencia_cruzamento 0 | bairro_cruzamento 0 | num_semaforo 0 | sentido_via 0 | tipo 0 | descricao 0 | auto 0 | moto 0 | ciclom 0 | ciclista 0 | pedestre 0 | onibus 0 | caminhao 0 | viatura 0 | outros 0 | vitimas 0 | vitimasfatais 0 | acidente_verificado 0 | tempo_clima 0 | situacao_semaforo 0 | sinalizacao 0 | condicao_via 0 | conservacao_via 0 | ponto_controle 0 | situacao_placa 0 | velocidade_max_via 0 | mao_direcao 0 | divisao_via1 0 | divisao_via2 0 | divisao_via3 0
-[2026-03-06 15:04:44.246558] INFO - Limpeza concluída
-[2026-03-06 15:04:44.255618] INFO - Limpeza de dados finalizada
-[2026-03-06 15:04:44.261125] INFO - Iniciando validação de dados
-[2026-03-06 15:04:44.299746] ERROR - Erro na etapa: Padronização
-[2026-03-06 15:04:44.306498] ERROR - Mensagem original: não foi possível encontrar a função "validate_data"
-[2026-03-06 15:05:51.069242] INFO - Logger configurado com sucesso.
-[2026-03-06 15:05:51.699397] INFO - ### Iniciando execução do pipeline - main.R ###
-[2026-03-06 15:05:51.712488] INFO - Iniciando ingentão de dados
-[2026-03-06 15:05:52.180048] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
-[2026-03-06 15:05:53.327935] INFO - Arquivo lido com sucesso.
-[2026-03-06 15:05:53.333507] INFO - Ingentão de dados finalizada
-[2026-03-06 15:05:53.393663] INFO - Iniciando padronização de dados
-[2026-03-06 15:05:54.157784] INFO - Iniciando padronização das colunas e conversão de tipos
-[2026-03-06 15:05:54.16279] INFO - Linhas recebidas: 12062
-[2026-03-06 15:05:54.176178] INFO - Nomes de colunas padronizados
-[2026-03-06 15:05:55.180109] INFO - Tipos convertidos e textos padronizados
-[2026-03-06 15:05:55.18601] INFO - Padronização de dados finalizada
-[2026-03-06 15:05:55.192265] INFO - Iniciando limpeza de dados
-[2026-03-06 15:05:55.899332] INFO - Iniciando limpeza global
-[2026-03-06 15:05:55.906574] INFO - Linhas: 12062
-[2026-03-06 15:05:55.913047] INFO - Colunas: 42
-[2026-03-06 15:05:56.397531] INFO - Valores inválidos convertidos para NA
-[2026-03-06 15:05:57.394826] INFO - NA por coluna após limpeza:
-[2026-03-06 15:05:57.408654] INFO - id 0 | data 0 | hora 0 | natureza_acidente 0 | situacao 0 | bairro 0 | endereco 0 | numero 0 | detalhe_endereco_acidente 0 | complemento 0 | endereco_cruzamento 0 | numero_cruzamento 0 | referencia_cruzamento 0 | bairro_cruzamento 0 | num_semaforo 0 | sentido_via 0 | tipo 0 | descricao 0 | auto 0 | moto 0 | ciclom 0 | ciclista 0 | pedestre 0 | onibus 0 | caminhao 0 | viatura 0 | outros 0 | vitimas 0 | vitimasfatais 0 | acidente_verificado 0 | tempo_clima 0 | situacao_semaforo 0 | sinalizacao 0 | condicao_via 0 | conservacao_via 0 | ponto_controle 0 | situacao_placa 0 | velocidade_max_via 0 | mao_direcao 0 | divisao_via1 0 | divisao_via2 0 | divisao_via3 0
-[2026-03-06 15:05:57.426166] INFO - Limpeza concluída
-[2026-03-06 15:05:57.446443] INFO - Limpeza de dados finalizada
-[2026-03-06 15:05:57.457892] INFO - Iniciando validação de dados
-[2026-03-06 15:05:57.885175] INFO - Iniciando validação
-[2026-03-06 15:05:57.993211] INFO - DataSet sem valores NA
-[2026-03-06 15:05:58.006537] INFO - Validação concluída com sucesso
-[2026-03-06 15:05:58.013972] INFO - Validação de dados finalizada
-[2026-03-06 15:05:58.021206] INFO - ### Término da execução do pipeline - main.R ###
-[2026-03-06 15:20:12.592145] INFO - Logger configurado com sucesso.
-[2026-03-06 15:20:14.218902] INFO - ### Iniciando execução do pipeline - main.R ###
-[2026-03-06 15:20:14.225987] INFO - Iniciando ingentão de dados
-[2026-03-06 15:20:14.263762] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
-[2026-03-06 15:20:15.259745] INFO - Arquivo lido com sucesso.
-[2026-03-06 15:20:15.265199] INFO - Ingentão de dados finalizada
-[2026-03-06 15:20:15.271197] INFO - Iniciando padronização de dados
-[2026-03-06 15:20:16.312888] INFO - Iniciando padronização das colunas e conversão de tipos
-[2026-03-06 15:20:16.3179] INFO - Linhas recebidas: 12062
-[2026-03-06 15:20:16.329549] INFO - Nomes de colunas padronizados
-[2026-03-06 15:20:17.162503] INFO - Tipos convertidos e textos padronizados
-[2026-03-06 15:20:17.16766] INFO - Padronização de dados finalizada
-[2026-03-06 15:20:17.174941] INFO - Iniciando limpeza de dados
-[2026-03-06 15:20:17.992088] INFO - Iniciando limpeza global
-[2026-03-06 15:20:17.997783] INFO - Linhas: 12062
-[2026-03-06 15:20:18.003777] INFO - Colunas: 42
-[2026-03-06 15:20:18.468734] INFO - Valores inválidos convertidos para NA
-[2026-03-06 15:20:19.47971] INFO - NA por coluna após limpeza:
-[2026-03-06 15:20:19.484687] INFO - id 0 | data 0 | hora 0 | natureza_acidente 0 | situacao 0 | bairro 0 | endereco 0 | numero 0 | detalhe_endereco_acidente 0 | complemento 0 | endereco_cruzamento 0 | numero_cruzamento 0 | referencia_cruzamento 0 | bairro_cruzamento 0 | num_semaforo 0 | sentido_via 0 | tipo 0 | descricao 0 | auto 0 | moto 0 | ciclom 0 | ciclista 0 | pedestre 0 | onibus 0 | caminhao 0 | viatura 0 | outros 0 | vitimas 0 | vitimasfatais 0 | acidente_verificado 0 | tempo_clima 0 | situacao_semaforo 0 | sinalizacao 0 | condicao_via 0 | conservacao_via 0 | ponto_controle 0 | situacao_placa 0 | velocidade_max_via 0 | mao_direcao 0 | divisao_via1 0 | divisao_via2 0 | divisao_via3 0
-[2026-03-06 15:20:19.492882] INFO - Limpeza concluída
-[2026-03-06 15:20:19.499104] INFO - Limpeza de dados finalizada
-[2026-03-06 15:20:19.50505] INFO - Iniciando validação de dados
-[2026-03-06 15:20:19.684118] INFO - Iniciando validação
-[2026-03-06 15:20:19.712906] INFO - DataSet sem valores NA
-[2026-03-06 15:20:19.718099] INFO - Validação concluída com sucesso
-[2026-03-06 15:20:19.726851] INFO - Validação de dados finalizada
-[2026-03-06 15:20:19.733006] INFO - Iniciando persistência dos dados
-[2026-03-06 15:20:21.145837] ERROR - Erro na etapa: Falha ao salvar dados validados
-[2026-03-06 15:20:21.152448] ERROR - Mensagem original: is.data.frame(x) não é TRUE
-[2026-03-06 15:26:59.507987] INFO - Logger configurado com sucesso.
-[2026-03-06 15:27:00.384536] INFO - ### Iniciando execução do pipeline - main.R ###
-[2026-03-06 15:27:00.39302] INFO - Iniciando ingentão de dados
-[2026-03-06 15:27:00.509756] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
-[2026-03-06 15:27:01.632568] INFO - Arquivo lido com sucesso.
-[2026-03-06 15:27:01.63853] INFO - Ingentão de dados finalizada
-[2026-03-06 15:27:01.643484] INFO - Iniciando padronização de dados
-[2026-03-06 15:27:02.014558] INFO - Iniciando padronização das colunas e conversão de tipos
-[2026-03-06 15:27:02.021184] INFO - Linhas recebidas: 12062
-[2026-03-06 15:27:02.029979] INFO - Nomes de colunas padronizados
-[2026-03-06 15:27:02.999527] INFO - Tipos convertidos e textos padronizados
-[2026-03-06 15:27:03.009354] INFO - Padronização de dados finalizada
-[2026-03-06 15:27:03.014522] INFO - Iniciando limpeza de dados
-[2026-03-06 15:27:03.53901] INFO - Iniciando limpeza global
-[2026-03-06 15:27:03.543927] INFO - Linhas: 12062
-[2026-03-06 15:27:03.548954] INFO - Colunas: 42
-[2026-03-06 15:27:04.238506] INFO - Valores inválidos convertidos para NA
-[2026-03-06 15:27:05.071318] INFO - NA por coluna após limpeza:
-[2026-03-06 15:27:05.07772] INFO - id 0 | data 0 | hora 0 | natureza_acidente 0 | situacao 0 | bairro 0 | endereco 0 | numero 0 | detalhe_endereco_acidente 0 | complemento 0 | endereco_cruzamento 0 | numero_cruzamento 0 | referencia_cruzamento 0 | bairro_cruzamento 0 | num_semaforo 0 | sentido_via 0 | tipo 0 | descricao 0 | auto 0 | moto 0 | ciclom 0 | ciclista 0 | pedestre 0 | onibus 0 | caminhao 0 | viatura 0 | outros 0 | vitimas 0 | vitimasfatais 0 | acidente_verificado 0 | tempo_clima 0 | situacao_semaforo 0 | sinalizacao 0 | condicao_via 0 | conservacao_via 0 | ponto_controle 0 | situacao_placa 0 | velocidade_max_via 0 | mao_direcao 0 | divisao_via1 0 | divisao_via2 0 | divisao_via3 0
-[2026-03-06 15:27:05.087939] INFO - Limpeza concluída
-[2026-03-06 15:27:05.093963] INFO - Limpeza de dados finalizada
-[2026-03-06 15:27:05.09996] INFO - Iniciando validação de dados
-[2026-03-06 15:27:05.594922] INFO - Iniciando validação
-[2026-03-06 15:27:05.631635] INFO - DataSet sem valores NA
-[2026-03-06 15:27:05.637526] INFO - Validação concluída com sucesso
-[2026-03-06 15:27:05.643108] INFO - Validação de dados finalizada
-[2026-03-06 15:27:05.648821] INFO - Iniciando persistência dos dados
-[2026-03-06 15:27:05.722535] ERROR - Erro na etapa: Falha ao salvar dados validados
-[2026-03-06 15:27:05.760552] ERROR - Mensagem original: is.data.frame(x) não é TRUE
-[2026-03-06 15:30:44.701865] INFO - Logger configurado com sucesso.
-[2026-03-06 15:30:44.713758] INFO - ### Iniciando execução do pipeline - main.R ###
-[2026-03-06 15:30:45.246687] INFO - Iniciando ingentão de dados
-[2026-03-06 15:30:45.301969] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
-[2026-03-06 15:30:46.192045] INFO - Arquivo lido com sucesso.
-[2026-03-06 15:30:46.197944] INFO - Ingentão de dados finalizada
-[2026-03-06 15:30:46.209323] INFO - Iniciando padronização de dados
-[2026-03-06 15:30:46.415424] INFO - Iniciando padronização das colunas e conversão de tipos
-[2026-03-06 15:30:46.426069] INFO - Linhas recebidas: 12062
-[2026-03-06 15:30:46.440834] INFO - Nomes de colunas padronizados
-[2026-03-06 15:30:47.708472] INFO - Tipos convertidos e textos padronizados
-[2026-03-06 15:30:47.713306] INFO - Padronização de dados finalizada
-[2026-03-06 15:30:47.721304] INFO - Iniciando limpeza de dados
-[2026-03-06 15:30:48.420427] INFO - Iniciando limpeza global
-[2026-03-06 15:30:48.425556] INFO - Linhas: 12062
-[2026-03-06 15:30:48.431844] INFO - Colunas: 42
-[2026-03-06 15:30:48.911256] INFO - Valores inválidos convertidos para NA
-[2026-03-06 15:30:49.971396] INFO - NA por coluna após limpeza:
-[2026-03-06 15:30:49.977405] INFO - id 0 | data 0 | hora 0 | natureza_acidente 0 | situacao 0 | bairro 0 | endereco 0 | numero 0 | detalhe_endereco_acidente 0 | complemento 0 | endereco_cruzamento 0 | numero_cruzamento 0 | referencia_cruzamento 0 | bairro_cruzamento 0 | num_semaforo 0 | sentido_via 0 | tipo 0 | descricao 0 | auto 0 | moto 0 | ciclom 0 | ciclista 0 | pedestre 0 | onibus 0 | caminhao 0 | viatura 0 | outros 0 | vitimas 0 | vitimasfatais 0 | acidente_verificado 0 | tempo_clima 0 | situacao_semaforo 0 | sinalizacao 0 | condicao_via 0 | conservacao_via 0 | ponto_controle 0 | situacao_placa 0 | velocidade_max_via 0 | mao_direcao 0 | divisao_via1 0 | divisao_via2 0 | divisao_via3 0
-[2026-03-06 15:30:49.989022] INFO - Limpeza concluída
-[2026-03-06 15:30:49.994893] INFO - Limpeza de dados finalizada
-[2026-03-06 15:30:50.004049] INFO - Iniciando validação de dados
-[2026-03-06 15:30:51.757809] INFO - Iniciando validação
-[2026-03-06 15:30:51.788796] INFO - DataSet sem valores NA
-[2026-03-06 15:30:51.794347] INFO - Validação concluída com sucesso
-[2026-03-06 15:30:51.800806] INFO - Validação de dados finalizada
-[2026-03-06 15:30:51.806929] INFO - ### Término da execução do pipeline - main.R ###
-[2026-03-06 15:34:37.731597] INFO - Logger configurado com sucesso.
-[2026-03-06 15:34:38.364756] INFO - ### Iniciando execução do pipeline - main.R ###
-[2026-03-06 15:34:38.370192] INFO - Iniciando ingentão de dados
-[2026-03-06 15:34:38.926028] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
-[2026-03-06 15:34:39.687007] INFO - Arquivo lido com sucesso.
-[2026-03-06 15:34:39.692926] INFO - Ingentão de dados finalizada
-[2026-03-06 15:34:39.700503] INFO - Iniciando padronização de dados
-[2026-03-06 15:34:39.842505] INFO - Iniciando padronização das colunas e conversão de tipos
-[2026-03-06 15:34:39.848547] INFO - Linhas recebidas: 12062
-[2026-03-06 15:34:39.858433] INFO - Nomes de colunas padronizados
-[2026-03-06 15:34:40.682767] INFO - Tipos convertidos e textos padronizados
-[2026-03-06 15:34:40.687612] INFO - Padronização de dados finalizada
-[2026-03-06 15:34:40.693537] INFO - Iniciando limpeza de dados
-[2026-03-06 15:34:41.760555] INFO - Iniciando limpeza global
-[2026-03-06 15:34:41.766362] INFO - Linhas: 12062
-[2026-03-06 15:34:41.771587] INFO - Colunas: 42
-[2026-03-06 15:34:42.431394] INFO - Valores inválidos convertidos para NA
-[2026-03-06 15:34:43.23643] INFO - NA por coluna após limpeza:
-[2026-03-06 15:34:43.241378] INFO - id 0 | data 0 | hora 0 | natureza_acidente 0 | situacao 0 | bairro 0 | endereco 0 | numero 0 | detalhe_endereco_acidente 0 | complemento 0 | endereco_cruzamento 0 | numero_cruzamento 0 | referencia_cruzamento 0 | bairro_cruzamento 0 | num_semaforo 0 | sentido_via 0 | tipo 0 | descricao 0 | auto 0 | moto 0 | ciclom 0 | ciclista 0 | pedestre 0 | onibus 0 | caminhao 0 | viatura 0 | outros 0 | vitimas 0 | vitimasfatais 0 | acidente_verificado 0 | tempo_clima 0 | situacao_semaforo 0 | sinalizacao 0 | condicao_via 0 | conservacao_via 0 | ponto_controle 0 | situacao_placa 0 | velocidade_max_via 0 | mao_direcao 0 | divisao_via1 0 | divisao_via2 0 | divisao_via3 0
-[2026-03-06 15:34:43.253877] INFO - Limpeza concluída
-[2026-03-06 15:34:43.264537] INFO - Limpeza de dados finalizada
-[2026-03-06 15:34:43.271473] INFO - Iniciando validação de dados
-[2026-03-06 15:34:43.442323] INFO - Iniciando validação
-[2026-03-06 15:34:43.976871] INFO - DataSet sem valores NA
-[2026-03-06 15:34:43.990654] INFO - Validação concluída com sucesso
-[2026-03-06 15:34:43.999372] INFO - Validação de dados finalizada
-[2026-03-06 15:34:44.005516] INFO - Iniciando persistência dos dados
-[2026-03-06 15:34:46.894785] INFO - Persistência de dados finalizada
-[2026-03-06 15:34:46.905845] INFO - ### Término da execução do pipeline - main.R ###
-[2026-03-06 15:53:45.589852] INFO - Logger configurado com sucesso.
-[2026-03-06 15:53:46.386726] INFO - ### Iniciando execução do pipeline - main.R ###
-[2026-03-06 15:53:46.393837] INFO - Iniciando ingentão de dados
-[2026-03-06 15:53:46.964248] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
-[2026-03-06 15:53:47.660508] INFO - Arquivo lido com sucesso.
-[2026-03-06 15:53:47.665946] INFO - Ingentão de dados finalizada
-[2026-03-06 15:53:47.676531] INFO - Iniciando padronização de dados
-[2026-03-06 15:53:48.173458] INFO - Iniciando padronização das colunas e conversão de tipos
-[2026-03-06 15:53:48.224081] INFO - Linhas recebidas: 12062
-[2026-03-06 15:53:48.235209] INFO - Nomes de colunas padronizados
-[2026-03-06 15:53:49.130725] INFO - Tipos convertidos e textos padronizados
-[2026-03-06 15:53:49.142631] INFO - Padronização de dados finalizada
-[2026-03-06 15:53:49.152937] INFO - Iniciando limpeza de dados
-[2026-03-06 15:53:49.390995] INFO - Iniciando limpeza global
-[2026-03-06 15:53:49.396616] INFO - Linhas: 12062
-[2026-03-06 15:53:49.405363] INFO - Colunas: 42
-[2026-03-06 15:53:50.680729] INFO - Valores inválidos convertidos para NA
-[2026-03-06 15:53:51.746246] INFO - NA por coluna após limpeza:
-[2026-03-06 15:53:51.754418] INFO - id 0 | data 0 | hora 0 | natureza_acidente 0 | situacao 0 | bairro 0 | endereco 0 | numero 0 | detalhe_endereco_acidente 0 | complemento 0 | endereco_cruzamento 0 | numero_cruzamento 0 | referencia_cruzamento 0 | bairro_cruzamento 0 | num_semaforo 0 | sentido_via 0 | tipo 0 | descricao 0 | auto 0 | moto 0 | ciclom 0 | ciclista 0 | pedestre 0 | onibus 0 | caminhao 0 | viatura 0 | outros 0 | vitimas 0 | vitimasfatais 0 | acidente_verificado 0 | tempo_clima 0 | situacao_semaforo 0 | sinalizacao 0 | condicao_via 0 | conservacao_via 0 | ponto_controle 0 | situacao_placa 0 | velocidade_max_via 0 | mao_direcao 0 | divisao_via1 0 | divisao_via2 0 | divisao_via3 0
-[2026-03-06 15:53:51.761721] INFO - Limpeza concluída
-[2026-03-06 15:53:51.774645] INFO - Limpeza de dados finalizada
-[2026-03-06 15:53:51.788262] INFO - Iniciando validação de dados
-[2026-03-06 15:53:52.211319] INFO - Iniciando validação
-[2026-03-06 15:53:52.240015] INFO - DataSet sem valores NA
-[2026-03-06 15:53:52.245886] INFO - Validação concluída com sucesso
-[2026-03-06 15:53:52.256233] INFO - Validação de dados finalizada
-[2026-03-06 15:53:52.262129] INFO - Iniciando persistência dos dados
-[2026-03-06 15:53:54.685844] INFO - Persistência de dados finalizada
-[2026-03-06 15:53:54.694326] INFO - ### Término da execução do pipeline - main.R ###
-[2026-03-06 15:56:05.814147] INFO - Logger configurado com sucesso.
-[2026-03-06 15:56:06.898793] INFO - ### Iniciando execução do pipeline - main.R ###
-[2026-03-06 15:56:06.905536] INFO - Iniciando ingentão de dados
-[2026-03-06 15:56:07.521461] INFO - Iniciando ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
-[2026-03-06 15:56:08.237703] INFO - Arquivo lido com sucesso.
-[2026-03-06 15:56:08.245088] INFO - Ingentão de dados finalizada
-[2026-03-06 15:56:08.2562] INFO - Iniciando padronização de dados
-[2026-03-06 15:56:08.77972] INFO - Iniciando padronização das colunas e conversão de tipos
-[2026-03-06 15:56:08.788312] INFO - Linhas recebidas: 12062
-[2026-03-06 15:56:08.797148] INFO - Nomes de colunas padronizados
-[2026-03-06 15:56:09.645519] INFO - Tipos convertidos e textos padronizados
-[2026-03-06 15:56:09.65195] INFO - Padronização de dados finalizada
-[2026-03-06 15:56:09.657177] INFO - Iniciando limpeza de dados
-[2026-03-06 15:56:10.339538] INFO - Iniciando limpeza global
-[2026-03-06 15:56:10.345746] INFO - Linhas: 12062
-[2026-03-06 15:56:10.353024] INFO - Colunas: 42
-[2026-03-06 15:56:10.832361] INFO - Valores inválidos convertidos para NA
-[2026-03-06 15:56:11.904845] INFO - NA por coluna após limpeza:
-[2026-03-06 15:56:11.910476] INFO - id 0 | data 0 | hora 0 | natureza_acidente 0 | situacao 0 | bairro 0 | endereco 0 | numero 0 | detalhe_endereco_acidente 0 | complemento 0 | endereco_cruzamento 0 | numero_cruzamento 0 | referencia_cruzamento 0 | bairro_cruzamento 0 | num_semaforo 0 | sentido_via 0 | tipo 0 | descricao 0 | auto 0 | moto 0 | ciclom 0 | ciclista 0 | pedestre 0 | onibus 0 | caminhao 0 | viatura 0 | outros 0 | vitimas 0 | vitimasfatais 0 | acidente_verificado 0 | tempo_clima 0 | situacao_semaforo 0 | sinalizacao 0 | condicao_via 0 | conservacao_via 0 | ponto_controle 0 | situacao_placa 0 | velocidade_max_via 0 | mao_direcao 0 | divisao_via1 0 | divisao_via2 0 | divisao_via3 0
-[2026-03-06 15:56:11.921804] INFO - Limpeza concluída
-[2026-03-06 15:56:11.92877] INFO - Limpeza de dados finalizada
-[2026-03-06 15:56:11.937287] INFO - Iniciando validação de dados
-[2026-03-06 15:56:12.096327] INFO - Iniciando validação
-[2026-03-06 15:56:12.119723] INFO - DataSet sem valores NA
-[2026-03-06 15:56:12.124481] INFO - Validação concluída com sucesso
-[2026-03-06 15:56:12.129428] INFO - Validação de dados finalizada
-[2026-03-06 15:56:12.1382] INFO - Iniciando persistência dos dados
-[2026-03-06 15:56:14.475484] INFO - Persistência de dados finalizada
-[2026-03-06 15:56:14.483002] INFO - ### Término da execução do pipeline - main.R ###
+[2026-03-07 15:43:54.80745] INFO - Logger configurado com sucesso.
+[2026-03-07 15:43:55.624886] INFO - ### Iniciando execução do pipeline - main.R ###
+[2026-03-07 15:43:55.637919] INFO - Iniciando ingentão de dados - main.R
+[2026-03-07 15:43:55.710193] INFO - Ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
+[2026-03-07 15:43:56.520084] INFO - Arquivo lido com sucesso.
+[2026-03-07 15:43:56.526058] INFO - Ingentão de dados finalizada - main.R
+[2026-03-07 15:43:56.539134] INFO - Iniciando padronização de dados - main.R
+[2026-03-07 15:43:57.227744] INFO - Iniciando padronização das colunas e conversão de tipos
+[2026-03-07 15:43:57.234847] INFO - Linhas recebidas: 12062
+[2026-03-07 15:43:57.240137] INFO - Números de colunas: 42
+[2026-03-07 15:43:57.250046] INFO - Nomes de colunas padronizados
+[2026-03-07 15:43:58.174324] INFO - Tipos convertidos e textos padronizados
+[2026-03-07 15:43:58.179848] INFO - Padronização de dados finalizada - main.R
+[2026-03-07 15:43:58.187859] INFO - Iniciando limpeza de dados - main.R
+[2026-03-07 15:43:58.389777] INFO - Iniciando limpeza global
+[2026-03-07 15:43:58.395603] INFO - Linhas recebidas: 12062
+[2026-03-07 15:43:58.403251] INFO - Número de colunas: 42
+[2026-03-07 15:43:59.005402] INFO - Valores inválidos convertidos para NA
+[2026-03-07 15:43:59.83732] INFO - NA por coluna após limpeza:
+[2026-03-07 15:43:59.844122] INFO - id 0 | data 0 | hora 0 | natureza_acidente 0 | situacao 0 | bairro 0 | endereco 0 | numero 0 | detalhe_endereco_acidente 0 | complemento 0 | endereco_cruzamento 0 | numero_cruzamento 0 | referencia_cruzamento 0 | bairro_cruzamento 0 | num_semaforo 0 | sentido_via 0 | tipo 0 | descricao 0 | auto 0 | moto 0 | ciclom 0 | ciclista 0 | pedestre 0 | onibus 0 | caminhao 0 | viatura 0 | outros 0 | vitimas 0 | vitimasfatais 0 | acidente_verificado 0 | tempo_clima 0 | situacao_semaforo 0 | sinalizacao 0 | condicao_via 0 | conservacao_via 0 | ponto_controle 0 | situacao_placa 0 | velocidade_max_via 0 | mao_direcao 0 | divisao_via1 0 | divisao_via2 0 | divisao_via3 0
+[2026-03-07 15:43:59.854919] INFO - Limpeza concluída
+[2026-03-07 15:43:59.860871] INFO - Limpeza de dados finalizada - main.R
+[2026-03-07 15:43:59.870626] INFO - Iniciando validação de dados - main.R
+[2026-03-07 15:44:00.328711] INFO - Iniciando validação dos dados
+[2026-03-07 15:44:00.362226] INFO - DataSet sem valores NA
+[2026-03-07 15:44:00.370578] INFO - Validação concluída com sucesso
+[2026-03-07 15:44:00.376556] INFO - Validação de dados finalizada - main.R
+[2026-03-07 15:44:00.936705] INFO - Iniciando persistência dos dados - main.R
+[2026-03-07 15:44:02.581538] INFO - Persistência de dados finalizada - main.R
+[2026-03-07 15:44:02.589078] INFO - ### Término da execução do pipeline - main.R ###
