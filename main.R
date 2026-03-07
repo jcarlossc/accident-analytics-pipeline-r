@@ -1,3 +1,6 @@
+# --------------------------------------------------------
+# 1. Pacotes utilizados
+# --------------------------------------------------------
 library(yaml)
 library(logger)
 
@@ -33,7 +36,7 @@ main <- function() {
 
   tryCatch({
   
-    log_info("Iniciando ingentão de dados")
+    log_info("Iniciando ingentão de dados - main.R")
   
     tryCatch({
       # =======================================================
@@ -55,7 +58,7 @@ main <- function() {
       # -------------------------------------------------------- 
       data_ingest_tibble <- retry_manual(function() ingest_data(path_raw))
     
-      log_info("Ingentão de dados finalizada")
+      log_info("Ingentão de dados finalizada - main.R")
       
     }, error = function(e) {
         handle_error(e, "Ingestão")
@@ -67,14 +70,14 @@ main <- function() {
       # 2. SUB-PIPELINE (Padronização dos dados)
       # =======================================================
       
-      log_info("Iniciando padronização de dados")
+      log_info("Iniciando padronização de dados - main.R")
       
       # --------------------------------------------------------
       # 7. 
       # -------------------------------------------------------- 
       data_standard_tibble <- standardization_data(data_ingest_tibble)
       
-      log_info("Padronização de dados finalizada")
+      log_info("Padronização de dados finalizada - main.R")
       
     }, error = function(e) {
       handle_error(e, "Padronização")
@@ -86,14 +89,14 @@ main <- function() {
       # 2. SUB-PIPELINE (Limpeza dos dados)
       # =======================================================
       
-      log_info("Iniciando limpeza de dados")
+      log_info("Iniciando limpeza de dados - main.R")
       
       # --------------------------------------------------------
       # 7. 
       # -------------------------------------------------------- 
       data_clean_tibble <- clean_data(data_standard_tibble)
       
-      log_info("Limpeza de dados finalizada")
+      log_info("Limpeza de dados finalizada - main.R")
       
     }, error = function(e) {
       handle_error(e, "Limpeza")
@@ -105,14 +108,14 @@ main <- function() {
       # 2. SUB-PIPELINE (Validação dos dados)
       # =======================================================
       
-      log_info("Iniciando validação de dados")
+      log_info("Iniciando validação de dados - main.R")
       
       # --------------------------------------------------------
       # 7. 
       # -------------------------------------------------------- 
       data_validation <- validate_data(data_clean_tibble)
       
-      log_info("Validação de dados finalizada")
+      log_info("Validação de dados finalizada - main.R")
       
     }, error = function(e) {
       handle_error(e, "Validação")
@@ -124,16 +127,18 @@ main <- function() {
       # 2. SUB-PIPELINE (Salva dados processados no formato csv)
       # =======================================================
       
-      log_info("Iniciando persistência dos dados")
+      log_info("Iniciando persistência dos dados - main.R")
       
       # ------------------------------------------------------
       # 3️⃣ Salvar CSV
       # ------------------------------------------------------
       if(data_validation == TRUE){
         readr::write_csv(data_clean_tibble, config_paths$data$processed)
+      }else{
+        stop("Falha na persistência dos dados")
       }
       
-      log_info("Persistência de dados finalizada")
+      log_info("Persistência de dados finalizada - main.R")
       
     }, error = function(e) {
       handle_error(e, "Falha ao salvar dados validados")
@@ -147,3 +152,4 @@ main <- function() {
 
 
 main()
+

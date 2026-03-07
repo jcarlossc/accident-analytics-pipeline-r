@@ -75,30 +75,34 @@ library(lubridate)
 library(hms)
 library(logger)
 
-standardization_data <- function(dados) {
+# ------------------------------------------------------
+# 2. Função responsável pela padronização dos dados
+# ------------------------------------------------------
+standardization_data <- function(data_standard) {
   
   log_info("Iniciando padronização das colunas e conversão de tipos")
   
   tryCatch({
     
     # ------------------------------------------------------
-    # 2. Validação de entrada
+    # 3. Validação de entrada
     # ------------------------------------------------------
-    if (is.null(dados))
+    if (is.null(data_standard))
       stop("Objeto de dados é NULL")
     
-    if (!is.data.frame(dados))
+    if (!is.data.frame(data_standard))
       stop(paste("Objeto não é data.frame/tibble. Classe:", class(dados)))
     
-    if (nrow(dados) == 0)
+    if (nrow(data_standard) == 0)
       stop("Data frame vazio")
     
-    log_info(paste("Linhas recebidas:", nrow(dados)))
+    log_info(paste("Linhas recebidas:", nrow(data_standard)))
+    log_info(paste("Números de colunas:", ncol(data_standard)))
     
     # ------------------------------------------------------
     # 4. Padronizar nomes de colunas
     # ------------------------------------------------------
-    names(dados) <- names(dados) |>
+    names(data_standard) <- names(data_standard) |>
       str_to_lower() |>
       str_replace_all("[^a-z0-9]", "_") |>
       str_replace_all("_+", "_") |>
@@ -110,23 +114,24 @@ standardization_data <- function(dados) {
     # ------------------------------------------------------
     # 5. Converter tipos comuns
     # ------------------------------------------------------
-    dados <- dados |>
+    data_standard <- data_standard |>
       mutate(
         # -------------------------------
-        #  DATA
+        #  6. DATA - Converter para tipo Date
         # -------------------------------
         data = suppressWarnings(lubridate::ymd(data)),
-        #data = ymd(data),
+        
         # -------------------------------
-        #  HORA
+        #  7. HORA - Converter para tipo Time
         # -------------------------------
         hora = trimws(hora),
         hora = na_if(hora, ""),
         hora = suppressWarnings(parse_date_time(hora,
         orders = c("HMS","HM","MS"))),
         hora = hms::as_hms(hora),
+        
         # -------------------------------
-        #  TEXTO –Todas as palavras minúsculas e capitalizadas
+        #  8. TEXTO – Todas as palavras minúsculas e capitalizadas
         # -------------------------------
         across(
           c(natureza_acidente, situacao, complemento,
@@ -135,19 +140,18 @@ standardization_data <- function(dados) {
           ~ str_to_sentence(.)
         ),
         # -------------------------------
-        #  TEXTO – Todascapitalizadas
+        #  9. TEXTO – Todas as palavras capitalizadas
         # -------------------------------
         across(
           c(bairro, endereco, detalhe_endereco_acidente,
             endereco_cruzamento, bairro_cruzamento),
           ~ str_to_title(.)
         )
-        
       )
     
     log_info("Tipos convertidos e textos padronizados")
     
-    return(dados)
+    return(data_standard)
     
   }, error = function(e) {
     

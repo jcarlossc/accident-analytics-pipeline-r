@@ -51,7 +51,7 @@
 # ----------------------------------------------------------------------
 # INTEGRAÇÃO
 # ----------------------------------------------------------------------
-# Utilizado pela etapa principal do pipeline (pipeline.R ou main.R).
+# Utilizado pela etapa principal do pipeline ( main.R).
 # Depende da inicialização prévia do sistema de logging.
 #
 # ----------------------------------------------------------------------
@@ -61,9 +61,6 @@
 #   - data.table::fread()
 #   - Leitura por chunk
 #   - Processamento distribuído
-#
-# Em ambientes orquestrados (ex: Docker ou Apache Airflow),
-# o caminho do arquivo deve ser configurado via YAML.
 # ======================================================================
 
 # --------------------------------------------------------
@@ -73,14 +70,17 @@ library(readr)
 library(glue)
 library(logger)
 
+# ------------------------------------------------------
+# 2. Função responsável pela ingestão dos dados
+# ------------------------------------------------------
 ingest_data <- function(path) {
   
-  log_info("Iniciando ingestão do arquivo: {path}")
+  log_info("Ingestão do arquivo: {path}")
   
   tryCatch({
     
     # ------------------------------------------------------
-    # Validação do caminho
+    # 3. Validação do caminho
     # ------------------------------------------------------
     if (is.null(path) || path == "") {
       stop("Caminho do arquivo está vazio.")
@@ -91,24 +91,24 @@ ingest_data <- function(path) {
     }
     
     # ------------------------------------------------------
-    # Leitura do CSV
+    # 4. Leitura do CSV
     # ------------------------------------------------------
-    dados <- readr::read_csv(path, show_col_types = FALSE)
+    data_raw <- readr::read_csv(path, show_col_types = FALSE)
     
     # ------------------------------------------------------
-    # Validação do resultado
+    # 5. Validação do resultado
     # ------------------------------------------------------
-    if (!inherits(dados, "data.frame")) {
+    if (!inherits(data_raw, "data.frame")) {
       stop("Leitura não retornou data.frame")
     }
     
-    if (nrow(dados) == 0) {
+    if (nrow(data_raw) == 0) {
       stop("Arquivo lido, mas está vazio.")
     }
     
     log_info("Arquivo lido com sucesso.")
     
-    return(dados)
+    return(data_raw)
     
   }, error = function(e) {
     
