@@ -54,69 +54,117 @@
 # Utilizado pela etapa principal do pipeline ( main.R).
 # Depende da inicialização prévia do sistema de logging.
 #
-# ----------------------------------------------------------------------
-# OBSERVAÇÃO
-# ----------------------------------------------------------------------
-# Para ingestão de grandes volumes de dados, considerar:
-#   - data.table::fread()
-#   - Leitura por chunk
-#   - Processamento distribuído
 # ======================================================================
 
-# --------------------------------------------------------
-# 1. Pacotes utilizados
-# --------------------------------------------------------
+# -----------------------------------------------------------------------------
+# 1. Carregamento de dependências
+# -----------------------------------------------------------------------------
+# Pacotes necessários para leitura de dados e geração de logs estruturados
+# durante a execução do pipeline.
+# -----------------------------------------------------------------------------
 library(readr)
 library(glue)
 library(logger)
 
-# ------------------------------------------------------
-# 2. Função responsável pela ingestão dos dados
-# ------------------------------------------------------
+# -----------------------------------------------------------------------------
+# 2. Função de ingestão de dados
+# -----------------------------------------------------------------------------
+# Responsável por carregar o dataset bruto a partir do caminho informado.
+#
+# Parâmetros:
+#   path (character) : caminho completo do arquivo CSV a ser lido
+#
+# Retorno:
+#   data.frame / tibble contendo os dados brutos carregados do arquivo.
+#
+# Comportamento:
+#   - Valida o caminho do arquivo
+#   - Verifica se o arquivo existe
+#   - Realiza leitura do CSV
+#   - Valida se o resultado contém dados
+#   - Registra logs durante todo o processo
+# -----------------------------------------------------------------------------
 ingest_data <- function(path) {
   
   log_info("Ingestão do arquivo: {path}")
   
   tryCatch({
     
-    # ------------------------------------------------------
-    # 3. Validação do caminho
+    # -------------------------------------------------------------------------
+    # Validação do caminho do arquivo
+    # -------------------------------------------------------------------------
+    # Garante que o caminho informado não seja nulo ou vazio, evitando falhas
+    # posteriores durante a leitura do arquivo.
+    # -------------------------------------------------------------------------
     # ------------------------------------------------------
     if (is.null(path) || path == "") {
       stop("Caminho do arquivo está vazio.")
     }
     
+    # -------------------------------------------------------------------------
+    # Leitura do dataset
+    # -------------------------------------------------------------------------
+    # Realiza a leitura do arquivo CSV utilizando o pacote readr, que oferece
+    # melhor desempenho e controle de tipos de dados.
+    # -------------------------------------------------------------------------
     if (!file.exists(path)) {
       stop(glue::glue("Arquivo não encontrado: {path}"))
     }
     
-    # ------------------------------------------------------
-    # 4. Leitura do CSV
-    # ------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # Leitura do dataset
+    # -------------------------------------------------------------------------
+    # Realiza a leitura do arquivo CSV utilizando o pacote readr, que oferece
+    # melhor desempenho e controle de tipos de dados.
+    # -------------------------------------------------------------------------
     data_raw <- readr::read_csv(path, show_col_types = FALSE)
     
-    # ------------------------------------------------------
-    # 5. Validação do resultado
-    # ------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # Validação do objeto retornado
+    # -------------------------------------------------------------------------
+    # Verifica se o objeto retornado pela leitura é um data.frame válido.
+    # -------------------------------------------------------------------------
     if (!inherits(data_raw, "data.frame")) {
       stop("Leitura não retornou data.frame")
     }
     
+    # -------------------------------------------------------------------------
+    # Verificação de dataset vazio
+    # -------------------------------------------------------------------------
+    # Garante que o arquivo contém registros antes de continuar o pipeline.
+    # -------------------------------------------------------------------------
     if (nrow(data_raw) == 0) {
       stop("Arquivo lido, mas está vazio.")
     }
     
+    # -------------------------------------------------------------------------
+    # Registro de sucesso da etapa de ingestão
+    # -------------------------------------------------------------------------
     log_info("Arquivo lido com sucesso.")
     
+    # -------------------------------------------------------------------------
+    # Retorna conjunto de dados bruto para próxima etapa
+    # -------------------------------------------------------------------------
     return(data_raw)
     
   }, error = function(e) {
     
+    # -------------------------------------------------------------------------
+    # Tratamento de erros da etapa de ingestão
+    # -------------------------------------------------------------------------
+    # Qualquer erro ocorrido durante a ingestão é encaminhado para o handler
+    # centralizado do pipeline para registro e tratamento apropriado.
+    # -------------------------------------------------------------------------
     handle_error(e, step = "Ingestão de Dados")
     stop(e)   
     
   }, warning = function(w) {
     
+    # -------------------------------------------------------------------------
+    # Tratamento de avisos
+    # -------------------------------------------------------------------------
+    # Avisos são registrados no log, mas não interrompem a execução do pipeline.
+    # -------------------------------------------------------------------------
     log_warn("Aviso durante ingestão: {w$message}")
     
     invokeRestart("muffleWarning")
