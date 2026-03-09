@@ -66,27 +66,47 @@
 # Depende da inicialização prévia do sistema de logging.
 # ======================================================================
 
-# --------------------------------------------------------
-# 1. Pacotes utilizados
-# --------------------------------------------------------
+# -----------------------------------------------------------------------------
+# 1. Carregamento de dependências
+# -----------------------------------------------------------------------------
+# Pacotes utilizados para transformação, padronização e registro de logs
+# durante a etapa de tratamento estrutural dos dados.
+# -----------------------------------------------------------------------------
 library(dplyr)
 library(stringr)
 library(lubridate)
 library(hms)
 library(logger)
 
-# ------------------------------------------------------
-# 2. Função responsável pela padronização dos dados
-# ------------------------------------------------------
+# -----------------------------------------------------------------------------
+# 2. Função de padronização dos dados
+# -----------------------------------------------------------------------------
+# Responsável por padronizar nomes de colunas, converter tipos de dados
+# e normalizar campos textuais do dataset.
+#
+# Parâmetros:
+#   data_standard (data.frame / tibble)
+#       Dataset proveniente da etapa de ingestão.
+#
+# Retorno:
+#   data.frame / tibble com estrutura padronizada.
+#
+# Observações:
+#   Esta etapa prepara os dados para os processos de limpeza e validação
+#   posteriores no pipeline.
+# -----------------------------------------------------------------------------
 standardization_data <- function(data_standard) {
   
   log_info("Iniciando padronização das colunas e conversão de tipos")
   
   tryCatch({
     
-    # ------------------------------------------------------
-    # 3. Validação de entrada
-    # ------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # 2.1 Validação do objeto de entrada
+    # -------------------------------------------------------------------------
+    # Garante que o objeto recebido é válido e contém registros antes
+    # de iniciar o processo de transformação.
+    # -------------------------------------------------------------------------
     if (is.null(data_standard))
       stop("Objeto de dados é NULL")
     
@@ -99,9 +119,17 @@ standardization_data <- function(data_standard) {
     log_info(paste("Linhas recebidas:", nrow(data_standard)))
     log_info(paste("Números de colunas:", ncol(data_standard)))
     
-    # ------------------------------------------------------
-    # 4. Padronizar nomes de colunas
-    # ------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # Padronização dos nomes das colunas
+    # -------------------------------------------------------------------------
+    # Normaliza nomes de colunas para um padrão consistente:
+    #   - letras minúsculas
+    #   - substituição de caracteres especiais por "_"
+    #   - remoção de múltiplos underscores consecutivos
+    #   - remoção de underscores no início ou final do nome
+    #
+    # Esse padrão facilita manipulação programática das colunas.
+    # -------------------------------------------------------------------------
     names(data_standard) <- names(data_standard) |>
       str_to_lower() |>
       str_replace_all("[^a-z0-9]", "_") |>
@@ -110,38 +138,51 @@ standardization_data <- function(data_standard) {
     
     log_info("Nomes de colunas padronizados")
     
-    
-    # ------------------------------------------------------
-    # 5. Converter tipos comuns
-    # ------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # Conversão de tipos de dados
+    # -------------------------------------------------------------------------
+    # Converte colunas que representam datas e horários para tipos
+    # apropriados do R, permitindo manipulação temporal correta.
+    # -------------------------------------------------------------------------
     data_standard <- data_standard |>
       mutate(
-        # -------------------------------
-        #  6. DATA - Converter para tipo Date
-        # -------------------------------
+        # ---------------------------------------------------------------------
+        # Conversão da coluna de data
+        # ---------------------------------------------------------------------
+        # Converte strings para o tipo Date utilizando lubridate.
+        # ---------------------------------------------------------------------
         data = suppressWarnings(lubridate::ymd(data)),
         
-        # -------------------------------
-        #  7. HORA - Converter para tipo Time
-        # -------------------------------
+        # ---------------------------------------------------------------------
+        # Conversão da coluna de horário
+        # ---------------------------------------------------------------------
+        # Interpreta diferentes formatos de horário
+        # e converte para o tipo hms.
+        # ---------------------------------------------------------------------
         hora = trimws(hora),
         hora = na_if(hora, ""),
         hora = suppressWarnings(parse_date_time(hora,
         orders = c("HMS","HM","MS"))),
         hora = hms::as_hms(hora),
         
-        # -------------------------------
-        #  8. TEXTO – Todas as palavras minúsculas e capitalizadas
-        # -------------------------------
+        # ---------------------------------------------------------------------
+        # Padronização textual (sentence case)
+        # ---------------------------------------------------------------------
+        # Campos descritivos são convertidos para frase com primeira letra
+        # maiúscula e demais minúsculas.
+        # ---------------------------------------------------------------------
         across(
           c(natureza_acidente, situacao, complemento,
             referencia_cruzamento, sentido_via,
             tipo, descricao),
           ~ str_to_sentence(.)
         ),
-        # -------------------------------
-        #  9. TEXTO – Todas as palavras capitalizadas
-        # -------------------------------
+        # ---------------------------------------------------------------------
+        # Padronização textual (title case)
+        # ---------------------------------------------------------------------
+        # Campos de localização são convertidos para formato com todas
+        # as palavras iniciando em maiúsculo.
+        # ---------------------------------------------------------------------
         across(
           c(bairro, endereco, detalhe_endereco_acidente,
             endereco_cruzamento, bairro_cruzamento),
@@ -155,8 +196,24 @@ standardization_data <- function(data_standard) {
     
   }, error = function(e) {
     
-    log_error("Erro na etapa: Padronização")
-    log_error(e$message)
-    stop(e)
+    # -------------------------------------------------------------------------
+    # Tratamento de erros da etapa de ingestão
+    # -------------------------------------------------------------------------
+    # Qualquer erro ocorrido durante a ingestão é encaminhado para o handler
+    # centralizado do pipeline para registro e tratamento apropriado.
+    # -------------------------------------------------------------------------
+    handle_error(e, step = "Padronização de Dados")
+    stop(e)   
+    
+  }, warning = function(w) {
+    
+    # -------------------------------------------------------------------------
+    # Tratamento de avisos
+    # -------------------------------------------------------------------------
+    # Avisos são registrados no log, mas não interrompem a execução do pipeline.
+    # -------------------------------------------------------------------------
+    log_warn("Aviso durante ingestão: {w$message}")
+    
+    invokeRestart("muffleWarning")
   })
 }
