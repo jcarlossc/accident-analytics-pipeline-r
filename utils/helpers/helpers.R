@@ -28,6 +28,7 @@
 # - Evitar duplicação de código
 # - Centralizar validações comuns
 # - Oferecer mecanismos simples de tolerância a falhas
+# - Mecanismo de logs e persistência de dados
 #
 # ----------------------------------------------------------------------
 # BOAS PRÁTICAS
@@ -82,4 +83,40 @@ retry_manual <- function(func, tentativas = 3, espera = 5) {
   }
   
   stop("Todas as tentativas falharam.")
+}
+
+# --------------------------------------------------------
+# 3. Função wrapper para execução segura.
+# --------------------------------------------------------
+safe_run <- function(expr, etapa) {
+  tryCatch(
+    expr,
+    error = function(e) {
+      handle_error(e, etapa)
+      stop(e)
+    }
+  )
+}
+
+# --------------------------------------------------------
+# 4. Função para log de início e fim de etapas
+# --------------------------------------------------------
+log_stage_start <- function(stage) {
+  log_info(paste("Iniciando etapa:", stage))
+}
+
+log_stage_end <- function(stage) {
+  log_info(paste("Finalizando etapa:", stage))
+}
+
+# --------------------------------------------------------
+# 4. Função para persistências dos dados
+# --------------------------------------------------------
+save_processed_data <- function(data, path) {
+  
+  log_info("Salvando dados processados")
+  
+  readr::write_csv(data, path)
+  
+  log_info("Dados salvos com sucesso")
 }

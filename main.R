@@ -1,19 +1,83 @@
-# --------------------------------------------------------
-# 1. Pacotes utilizados
-# --------------------------------------------------------
+# ======================================================================
+# Arquivo: data_ingest.R
+# Projeto: Sistema de Ingestão, Padronização, Limpeza e 
+# Validação de Dados de Acidentes - Recife - 2019
+# Autor: Carlos da Costa
+# Localização: Recife, Pernambuco - Brasil
+# Data de criação: 09/03/2026
+# Última modificação: 09/03/2026
+# Versão: 1.0.0
+# Ambiente: development
+#
+# ----------------------------------------------------------------------
+# DESCRIÇÃO
+# ----------------------------------------------------------------------
+# Script responsável por orquestrar o pipeline completo de processamento
+# de dados. Este arquivo executa sequencialmente as etapas de ingestão,
+# padronização, limpeza, validação e persistência dos dados.
+#
+# ----------------------------------------------------------------------
+# FLUXO DO PIPELINE
+# ----------------------------------------------------------------------
+#   1. Ingestão        -> leitura do dataset bruto
+#   2. Padronização    -> padronização de nomes e formatos
+#   3. Limpeza         -> tratamento de inconsistências e valores faltantes
+#   4. Validação       -> verificação de integridade dos dados
+#   5. Persistência    -> salvamento do dataset processado
+#
+# ----------------------------------------------------------------------
+# DEPENDÊNCIAS
+# ----------------------------------------------------------------------
+#   - yaml   : leitura de arquivos de configuração
+#   - logger : sistema de logging estruturado
+#
+# ----------------------------------------------------------------------
+# TRATAMENTO DE ERROS
+# ----------------------------------------------------------------------
+# - Erros críticos interrompem a execução
+# - Avisos são registrados no log
+# - Exceções são delegadas para handle_error()
+#
+# ----------------------------------------------------------------------
+# ARQUIVO DE CONFIGURAÇÃO
+# ----------------------------------------------------------------------
+#   config/paths.yaml
+# ======================================================================
+
+# -----------------------------------------------------------------------------
+# 1. Carregamento de pacotes
+# -----------------------------------------------------------------------------
+# Os pacotes abaixo são utilizados para leitura de arquivos de configuração
+# e gerenciamento do sistema de logs do pipeline.
+# -----------------------------------------------------------------------------
 library(yaml)
 library(logger)
 
-# -------------------------------------------------
-# 1. Carregar configuração
-# -------------------------------------------------
+# -----------------------------------------------------------------------------
+# 2. Carregamento das configurações do projeto
+# -----------------------------------------------------------------------------
+# Lê o arquivo YAML responsável por centralizar os caminhos de diretórios,
+# módulos do pipeline e arquivos de dados utilizados durante a execução.
+# -----------------------------------------------------------------------------
 config_paths <- suppressWarnings(
   yaml::read_yaml("config/paths.yaml")
 )
 
-# -------------------------------------------------
-# 2. Carregar módulos
-# -------------------------------------------------
+# -----------------------------------------------------------------------------
+# 3. CARREGAMENTO DOS MÓDULOS DO PIPELINE
+# -----------------------------------------------------------------------------
+# Cada etapa do pipeline é implementada em módulos independentes, seguindo
+# o princípio de separação de responsabilidades.
+#
+# Módulos carregados:
+#   - logger  : configuração do sistema de logs
+#   - handler : tratamento centralizado de erros
+#   - helper  : funções utilitárias
+#   - ingest  : ingestão dos dados
+#   - standardization : padronização dos dados
+#   - clean   : limpeza dos dados
+#   - validation : validação final dos dados
+# -----------------------------------------------------------------------------
 source(config_paths$config$logger)
 source(config_paths$config$handler)
 source(config_paths$config$helper)
@@ -22,132 +86,101 @@ source(config_paths$src$standardization)
 source(config_paths$src$clean)
 source(config_paths$src$validation)
 
-# -------------------------------------------------
-# 3. Inicializar logger
-# -------------------------------------------------
+# -----------------------------------------------------------------------------
+# 4. INICIALIZAÇÃO DO SISTEMA DE LOG
+# -----------------------------------------------------------------------------
+# Configura o logger utilizado durante toda a execução do pipeline,
+# permitindo registrar informações, avisos e erros de forma estruturada.
+# -----------------------------------------------------------------------------
 setup_logger()
 
-# -------------------------------------------------
-# 4. Função principal do pipeline
-# -------------------------------------------------
+# -----------------------------------------------------------------------------
+# 5. FUNÇÃO PRINCIPAL DO PIPELINE
+# -----------------------------------------------------------------------------
+# A função `main()` é responsável por coordenar a execução das etapas do
+# pipeline de dados. Cada etapa é executada de forma sequencial e protegida
+# por tratamento de erros utilizando `tryCatch`.
+#
+# Caso ocorra falha em qualquer etapa crítica, o pipeline é interrompido
+# para evitar propagação de dados inconsistentes.
+# -----------------------------------------------------------------------------
 main <- function() {
-
-  log_info("### Iniciando execução do pipeline - main.R ###")
-
-  tryCatch({
   
-    log_info("Iniciando ingentão de dados - main.R")
+  log_info("### Início do pipeline ###")
   
-    tryCatch({
-      # =======================================================
-      # 1. SUB-PIPELINE (Ingestão dos dados)
-      # =======================================================
-    
-      # --------------------------------------------------------
-      # 5. Caminho completo do arquivo
-      # --------------------------------------------------------  
-      path_raw  <- config_paths$data$raw
-    
-      # --------------------------------------------------------
-      # 6. Validar se arquivo existe
-      # -------------------------------------------------------- 
-      check_file_exists(path_raw)
-      
-      # --------------------------------------------------------
-      # 7. 
-      # -------------------------------------------------------- 
-      data_ingest_tibble <- retry_manual(function() ingest_data(path_raw))
-    
-      log_info("Ingentão de dados finalizada - main.R")
-      
-    }, error = function(e) {
-        handle_error(e, "Ingestão")
-        stop(e)
-    })
-    
-    tryCatch({
-      # =======================================================
-      # 2. SUB-PIPELINE (Padronização dos dados)
-      # =======================================================
-      
-      log_info("Iniciando padronização de dados - main.R")
-      
-      # --------------------------------------------------------
-      # 7. 
-      # -------------------------------------------------------- 
-      data_standard_tibble <- standardization_data(data_ingest_tibble)
-      
-      log_info("Padronização de dados finalizada - main.R")
-      
-    }, error = function(e) {
-      handle_error(e, "Padronização")
-      stop(e)
-    })
-    
-    tryCatch({
-      # =======================================================
-      # 2. SUB-PIPELINE (Limpeza dos dados)
-      # =======================================================
-      
-      log_info("Iniciando limpeza de dados - main.R")
-      
-      # --------------------------------------------------------
-      # 7. 
-      # -------------------------------------------------------- 
-      data_clean_tibble <- clean_data(data_standard_tibble)
-      
-      log_info("Limpeza de dados finalizada - main.R")
-      
-    }, error = function(e) {
-      handle_error(e, "Limpeza")
-      stop(e)
-    })
-    
-    tryCatch({
-      # =======================================================
-      # 2. SUB-PIPELINE (Validação dos dados)
-      # =======================================================
-      
-      log_info("Iniciando validação de dados - main.R")
-      
-      # --------------------------------------------------------
-      # 7. 
-      # -------------------------------------------------------- 
-      data_validation <- validate_data(data_clean_tibble)
-      
-      log_info("Validação de dados finalizada - main.R")
-      
-    }, error = function(e) {
-      handle_error(e, "Validação")
-      stop(e)
-    })
-    
-    tryCatch({
-      # =======================================================
-      # 2. SUB-PIPELINE (Salva dados processados no formato csv)
-      # =======================================================
-      
-      log_info("Iniciando persistência dos dados - main.R")
-      
-      # ------------------------------------------------------
-      # 3️⃣ Salvar CSV
-      # ------------------------------------------------------
-      if(data_validation == TRUE){
-        readr::write_csv(data_clean_tibble, config_paths$data$processed)
-      }else{
-        stop("Falha na persistência dos dados")
-      }
-      
-      log_info("Persistência de dados finalizada - main.R")
-      
-    }, error = function(e) {
-      handle_error(e, "Falha ao salvar dados validados")
-      stop(e)
-    })
-    
-    log_info("### Término da execução do pipeline - main.R ###")
-  })
-
+  path_raw <- config_paths$data$raw
+  
+  check_file_exists(path_raw)
+  
+  # =============================================================================
+  # SUB-PIPELINE 1: Ingestão de dados
+  # =============================================================================
+  # Responsável por localizar o arquivo bruto e carregá-lo em memória
+  # para posterior processamento.
+  # =============================================================================
+  log_stage_start("Ingestão")
+  
+  data_ingest_tibble <- safe_run(
+    retry_manual(function() ingest_data(path_raw)),
+    "Ingestão"
+  )
+  log_stage_end("Ingestão")
+  
+  # =============================================================================
+  # SUB-PIPELINE 2: Padronização de dados
+  # =============================================================================
+  # Realiza padronização de nomes de colunas, formatos de datas e
+  # conversão de tipos de dados quando necessário.
+  # =============================================================================
+  log_stage_start("Padronização")
+  
+  data_standard_tibble <- safe_run(
+    standardization_data(data_ingest_tibble),
+    "Padronização"
+  )
+  log_stage_end("Padronização")
+  
+  # =============================================================================
+  # SUB-PIPELINE 3: Limpeza de dados
+  # =============================================================================
+  # Trata inconsistências, remove duplicidades e realiza tratamento
+  # de valores ausentes ou inválidos.
+  # =============================================================================
+  log_stage_start("Limpeza")
+  
+  data_clean_tibble <- safe_run(
+    clean_data(data_standard_tibble),
+    "Limpeza"
+  )
+  log_stage_end("Limpeza")
+  
+  # =============================================================================
+  # SUB-PIPELINE 4: Validação de dados
+  # =============================================================================
+  # Verifica se os dados atendem às regras de integridade definidas
+  # para o dataset antes de sua persistência final.
+  # =============================================================================
+  log_stage_start("Validação")
+  data_validation <- safe_run(
+    validate_data(data_clean_tibble),
+    "Validação"
+  )
+  log_stage_end("Validação")
+  
+  # =============================================================================
+  # SUB-PIPELINE 5: Persistência de dados
+  # =============================================================================
+  # Caso a validação seja concluída com sucesso, o dataset limpo é
+  # salvo no diretório de dados processados em formato CSV.
+  # =============================================================================
+  if (data_validation) {
+    save_processed_data(
+      data_clean_tibble,
+      config_paths$data$processed
+    )
+  }
+  
+  log_info("### Fim do pipeline ###")
 }
 
 
