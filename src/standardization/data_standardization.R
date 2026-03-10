@@ -199,7 +199,7 @@ standardization_data <- function(data_standard) {
     log_info("Tipos convertidos e textos padronizados")
     
     # -------------------------------------------------------------------------
-    # Retorna conjunto de dados bruto para próxima etapa
+    # Retorna conjunto de dados para próxima etapa
     # -------------------------------------------------------------------------
     return(data_standard)
     
