@@ -47,20 +47,20 @@ handle_error <- function(e, step = "DESCONHECIDO") {
   
   tryCatch({
     # --------------------------------------------------------
-    # 2. Monta mensagem estruturada
+    # Monta mensagem estruturada
     # --------------------------------------------------------
     msg_step <- paste0("Erro na etapa: ", step)
     msg_error <- paste0("Mensagem original: ", e$message)
     
     # --------------------------------------------------------
-    # 3. Tenta registrar no logger
+    # Tenta registrar no logger
     # --------------------------------------------------------
     log_error(msg_step)
     log_error(msg_error)
   },
   
   # ----------------------------------------------------------
-  # 4. Se o logger falhar (ex: não inicializado)
+  # Se o logger falhar (ex: não inicializado)
   # ----------------------------------------------------------
   error = function(log_err) {
     message("Falha ao registrar no logger.")
@@ -70,7 +70,7 @@ handle_error <- function(e, step = "DESCONHECIDO") {
   },
   
   # ----------------------------------------------------------
-  # 5. Sempre executa
+  # Sempre executa
   # ----------------------------------------------------------
   finally = {
     message("Execução será interrompida.")
@@ -78,7 +78,7 @@ handle_error <- function(e, step = "DESCONHECIDO") {
   
   
   # ----------------------------------------------------------
-  # 6. Interrompe execução de forma controlada
+  # Interrompe execução de forma controlada
   # ----------------------------------------------------------
   stop(paste0(
     "[PIPELINE_ERROR] Etapa: ", step,
