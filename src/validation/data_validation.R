@@ -62,33 +62,57 @@
 #
 # ==========================================================
 
-# --------------------------------------------------------
-# 1. Pacotes utilizados
-# --------------------------------------------------------
+# -----------------------------------------------------------------------------
+# 1. Carregamento de dependências
+# -----------------------------------------------------------------------------
+# Pacotes utilizados para registro de logs e validação de campos temporais.
+# -----------------------------------------------------------------------------
 library(logger)
 library(hms)
 
-# ------------------------------------------------------
-# 2. Função responsável pela validação dos dados
-# ------------------------------------------------------
+# 2. Função de validação dos dados
+# -----------------------------------------------------------------------------
+# Responsável por validar estrutura, tipos e consistência dos dados
+# antes da persistência final do pipeline.
+#
+# Parâmetros:
+#   valid_data (data.frame / tibble)
+#       Dataset previamente limpo e padronizado.
+#
+# Retorno:
+#   TRUE se todas as validações forem aprovadas.
+#
+# Observação:
+#   Caso alguma validação crítica falhe, a função interrompe o pipeline
+#   lançando um erro.
+# -----------------------------------------------------------------------------
 validate_data <- function(valid_data) {
   
+  # -------------------------------------------------------------------------
+  # Registro de entrada da etapa de validação
+  # -------------------------------------------------------------------------
   log_info("Iniciando validação dos dados")
   
   tryCatch({
     
-    # -----------------------------------
-    # 3. Verificar classes
-    # -----------------------------------
+    # -------------------------------------------------------------------------
+    # Validação de tipos de dados
+    # -------------------------------------------------------------------------
+    # Verifica se as colunas temporais possuem os tipos esperados.
+    # Isso é essencial para evitar erros em análises temporais posteriores.
+    # -------------------------------------------------------------------------
     if (!inherits(valid_data$data, "Date"))
       stop("Coluna 'data' não é Date")
     
     if (!inherits(valid_data$hora, "hms"))
       stop("Coluna 'hora' não é hms")
 
-    # -----------------------------------
-    # 4. Verificar classes
-    # -----------------------------------
+    # -------------------------------------------------------------------------
+    # Validação de colunas numéricas
+    # -------------------------------------------------------------------------
+    # Define o conjunto de colunas que devem conter apenas valores numéricos,
+    # representando quantidades de veículos ou vítimas envolvidas.
+    # -------------------------------------------------------------------------
     numeric_column <- c(
       "auto",
       "moto",
@@ -114,27 +138,39 @@ validate_data <- function(valid_data) {
       ))
     }
     
-    # -----------------------------------
-    # 5. Verificar valores negativos
-    # -----------------------------------
+    # -------------------------------------------------------------------------
+    # Verificação de valores negativos
+    # -------------------------------------------------------------------------
+    # Quantidades de veículos ou vítimas não podem ser negativas.
+    # Essa regra garante consistência semântica do dataset.
+    # -------------------------------------------------------------------------
     if (any(valid_data[numeric_column] < 0, na.rm = TRUE))
       stop("Existem vítimas negativas")
     
-    # -----------------------------------
-    # 6. Intervalo de hora
-    # -----------------------------------
+    # -------------------------------------------------------------------------
+    # Validação do intervalo de horário
+    # -------------------------------------------------------------------------
+    # Garante que os valores de hora estejam dentro do intervalo válido
+    # de um dia (00:00:00 até 23:59:59).
+    # -------------------------------------------------------------------------
     if (any(valid_data$hora > hms::as_hms("23:59:59"), na.rm = TRUE))
       stop("Hora inválida detectada")
     
-    # -----------------------------------
-    # 7. Datas futuras
-    # -----------------------------------
+    # -------------------------------------------------------------------------
+    # Verificação de datas futuras
+    # -------------------------------------------------------------------------
+    # Registros com datas futuras são considerados inconsistentes para
+    # datasets históricos de acidentes.
+    # -------------------------------------------------------------------------
     if (any(valid_data$data > Sys.Date(), na.rm = TRUE))
       stop("Data futura detectada")
     
-    # -----------------------------------
-    # 8. Percentual de NA
-    # -----------------------------------
+    # -------------------------------------------------------------------------
+    # Avaliação da proporção de valores ausentes
+    # -------------------------------------------------------------------------
+    # Calcula o percentual de NA por coluna para monitoramento da
+    # qualidade dos dados.
+    # -------------------------------------------------------------------------
     percentual_na <- sapply(valid_data, function(x)
       mean(is.na(x)) * 100
     )
@@ -145,16 +181,36 @@ validate_data <- function(valid_data) {
       log_info("DataSet sem valores NA")
     )
     
+    # -------------------------------------------------------------------------
+    # Registro de sucesso da etapa de validação
+    # -------------------------------------------------------------------------
     log_info("Validação concluída com sucesso")
     
+    # -------------------------------------------------------------------------
+    # Retorna conjunto de dados para próxima etapa
+    # -------------------------------------------------------------------------
     return(TRUE)
     
-  # ----------------------------------------------------------
-  # 9. Tratamento de ERRO
-  # ----------------------------------------------------------
   }, error = function(e) {
-    log_error("Erro na validação")
-    log_error(e$message)
-    stop(e)
+    
+    # -------------------------------------------------------------------------
+    # Tratamento de erros da etapa de ingestão
+    # -------------------------------------------------------------------------
+    # Qualquer erro ocorrido durante a ingestão é encaminhado para o handler
+    # centralizado do pipeline para registro e tratamento apropriado.
+    # -------------------------------------------------------------------------
+    handle_error(e, step = "Validação de Dados")
+    stop(e)   
+    
+  }, warning = function(w) {
+    
+    # -------------------------------------------------------------------------
+    # Tratamento de avisos
+    # -------------------------------------------------------------------------
+    # Avisos são registrados no log, mas não interrompem a execução do pipeline.
+    # -------------------------------------------------------------------------
+    log_warn("Aviso durante validação: {w$message}")
+    
+    invokeRestart("muffleWarning")
   })
 }

@@ -174,7 +174,7 @@ clean_data <- function(data_cleaning) {
     log_info("Limpeza concluída")
     
     # -------------------------------------------------------------------------
-    # Retorna conjunto de dados bruto para próxima etapa
+    # Retorna conjunto de dados para próxima etapa
     # -------------------------------------------------------------------------
     return(data_cleaning)
     
