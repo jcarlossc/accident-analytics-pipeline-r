@@ -97,6 +97,9 @@ library(logger)
 # -----------------------------------------------------------------------------
 standardization_data <- function(data_standard) {
   
+  # -------------------------------------------------------------------------
+  # Registro de entrada da etapa de ingestão
+  # -------------------------------------------------------------------------
   log_info("Iniciando padronização das colunas e conversão de tipos")
   
   tryCatch({
@@ -190,8 +193,14 @@ standardization_data <- function(data_standard) {
         )
       )
     
+    # -------------------------------------------------------------------------
+    # Registro de sucesso da etapa de ingestão
+    # -------------------------------------------------------------------------
     log_info("Tipos convertidos e textos padronizados")
     
+    # -------------------------------------------------------------------------
+    # Retorna conjunto de dados bruto para próxima etapa
+    # -------------------------------------------------------------------------
     return(data_standard)
     
   }, error = function(e) {
@@ -212,7 +221,7 @@ standardization_data <- function(data_standard) {
     # -------------------------------------------------------------------------
     # Avisos são registrados no log, mas não interrompem a execução do pipeline.
     # -------------------------------------------------------------------------
-    log_warn("Aviso durante ingestão: {w$message}")
+    log_warn("Aviso durante padronização: {w$message}")
     
     invokeRestart("muffleWarning")
   })

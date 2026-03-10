@@ -12,34 +12,10 @@
 # ----------------------------------------------------------------------
 # DESCRIÇÃO
 # ----------------------------------------------------------------------
-# Módulo responsável pela limpeza global (data cleaning) dos dados
-# após a etapa de padronização estrutural.
-#
-# A função `clean_data()` executa procedimentos gerais de qualidade
-# de dados, incluindo:
-#
-#   - Identificação e substituição de valores inválidos
-#   - Normalização de valores ausentes (NA)
-#   - Aplicação de regras de tratamento por tipo de variável
-#   - Conversão adicional de datas e horários
-#   - Remoção de registros inconsistentes
-#   - Registro de métricas de qualidade no sistema de logs
-#
-# ----------------------------------------------------------------------
-# ESCOPO
-# ----------------------------------------------------------------------
-# Este módulo tem como objetivo melhorar a qualidade dos dados
-# antes da etapa de validação ou transformação analítica.
-#
-# Ele NÃO deve:
-#
-#   - Aplicar regras de negócio
-#   - Criar agregações
-#   - Realizar modelagem estatística
-#   - Alterar a estrutura principal do dataset
-#
-# A responsabilidade deste módulo é tratar inconsistências
-# comuns presentes em dados brutos ou semiestruturados.
+# Este módulo contém a função responsável pela limpeza global do dataset
+# após a etapa de padronização. A função aplica regras de tratamento de
+# valores inválidos, substituição de valores ausentes e remoção de
+# registros inconsistentes.
 #
 # ----------------------------------------------------------------------
 # PRINCIPAIS REGRAS DE LIMPEZA
@@ -67,48 +43,73 @@
 # - tryCatch garante rastreabilidade de erros
 # ======================================================================
 
-# --------------------------------------------------------
-# 1. Pacotes utilizados
-# --------------------------------------------------------
+# -----------------------------------------------------------------------------
+# 1. Carregamento de dependências
+# -----------------------------------------------------------------------------
+# Pacotes utilizados para transformação e limpeza dos dados durante o pipeline
+# -----------------------------------------------------------------------------
 library(dplyr)
 library(stringr)
 library(lubridate)
 library(hms)
 library(logger)
 
-# ------------------------------------------------------
-# 2. Função responsável pela limpeza dos dados
-# ------------------------------------------------------
-clean_data <- function(dados) {
+# -----------------------------------------------------------------------------
+# 2. Função de limpeza dos dados
+# -----------------------------------------------------------------------------
+# Responsável por aplicar regras gerais de limpeza e tratamento de dados
+# ausentes no dataset.
+#
+# Parâmetros:
+#   dados (data.frame / tibble)
+#       Dataset previamente padronizado.
+#
+# Retorno:
+#   data.frame / tibble com dados limpos e preparados para validação.
+#
+# Observação:
+#   As regras aplicadas devem refletir decisões de negócio ou qualidade
+#   de dados previamente definidas.
+# -----------------------------------------------------------------------------
+clean_data <- function(data_cleaning) {
   
+  # -------------------------------------------------------------------------
+  # Registro de entrada da etapa de limpeza
+  # -------------------------------------------------------------------------
   log_info("Iniciando limpeza global")
   
   tryCatch({
     
-    # ------------------------------------------------------
-    # 2. Validação
-    # ------------------------------------------------------
-    if (is.null(dados))
+    # -------------------------------------------------------------------------
+    # Validação do objeto de entrada
+    # -------------------------------------------------------------------------
+    # Garante que o dataset recebido é válido antes de iniciar qualquer
+    # transformação.
+    # -------------------------------------------------------------------------
+    if (is.null(data_cleaning))
       stop("Objeto NULL")
     
-    if (!is.data.frame(dados))
+    if (!is.data.frame(data_cleaning))
       stop("Objeto não é data.frame/tibble")
     
-    if (nrow(dados) == 0)
+    if (nrow(data_cleaning) == 0)
       stop("Data frame vazio")
     
-    log_info(paste("Linhas recebidas:", nrow(dados)))
-    log_info(paste("Número de colunas:", ncol(dados)))
+    log_info(paste("Linhas recebidas:", nrow(data_cleaning)))
+    log_info(paste("Número de colunas:", ncol(data_cleaning)))
     
-    # ------------------------------------------------------
-    # 3. Padronizar valores inválidos
-    # ------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # Padronização de valores inválidos
+    # -------------------------------------------------------------------------
+    # Define uma lista de representações comuns de dados ausentes ou inválidos
+    # encontradas em bases reais e as converte para NA.
+    # -------------------------------------------------------------------------
     valores_invalidos <- c(
       "", " ", "NA", "N/A", "NULL",
       "NAO INFORMADO", "IGNORADO", "SEM INFORMACAO"
     )
     
-    dados <- dados |>
+    data_cleaning <- data_cleaning |>
       mutate(
         across(where(is.character), \(x) {
           x <- str_trim(x)
@@ -119,49 +120,84 @@ clean_data <- function(dados) {
     
     log_info("Valores inválidos convertidos para NA")
     
-    # ------------------------------------------------------
-    # 4. Regras por tipo
-    # ------------------------------------------------------
-    
-    # Character 
-    dados <- dados |>
+    # -------------------------------------------------------------------------
+    # Variáveis categóricas
+    # -------------------------------------------------------------------------
+    # Valores ausentes em campos textuais são substituídos por
+    # "Não informado", mantendo consistência semântica.
+    # -------------------------------------------------------------------------
+    data_cleaning <- data_cleaning |>
       mutate(
         across(where(is.character), \(x)
                ifelse(is.na(x), "Não informado", x)
         )
       )
     
-    # Numeric  por 0 (se regra permitir)
-    dados <- dados |>
+    # -------------------------------------------------------------------------
+    # Variáveis numéricas
+    # -------------------------------------------------------------------------
+    # Valores ausentes são substituídos por zero quando a regra de negócio
+    # permite essa imputação.
+    # -------------------------------------------------------------------------
+    data_cleaning <- data_cleaning |>
       mutate(
         across(where(is.numeric), \(x)
                replace(x, is.na(x), 0)
         )
       )
     
-    # ------------------------------------------------------
-    # 5. Regras por tipo
-    # ------------------------------------------------------
-    linhas_removidas <- sum(is.na(dados$hora))
+    # -------------------------------------------------------------------------
+    # Aplicação de regras de qualidade dos dados
+    # -------------------------------------------------------------------------
+    # Remove registros considerados inválidos para análise.
+    # Neste caso, registros sem informação de horário são descartados.
+    # -------------------------------------------------------------------------
+    records_removed <- sum(is.na(data_cleaning$hora))
     
-    dados <- dados |> filter(!is.na(hora))
+    data_cleaning <- data_cleaning |> filter(!is.na(hora))
     
-    message("Linhas removidas por hora inválida: ", linhas_removidas)
+    message("Linhas removidas por hora inválida: ", records_removed)
     
-    # ------------------------------------------------------
-    # 6. Log de NA restantes
-    # ------------------------------------------------------
-    na_count <- sapply(dados, \(x) sum(is.na(x)))
+    # -------------------------------------------------------------------------
+    # Aplicação de regras de qualidade dos dados
+    # -------------------------------------------------------------------------
+    # Remove registros considerados inválidos para análise.
+    # Neste caso, registros sem informação de horário são descartados.
+    # -------------------------------------------------------------------------
+    na_count <- sapply(data_cleaning, \(x) sum(is.na(x)))
     log_info("NA por coluna após limpeza:")
     log_info(paste(names(na_count), na_count, collapse = " | "))
     
+    # -------------------------------------------------------------------------
+    # Registro de sucesso da etapa de limpeza
+    # -------------------------------------------------------------------------
     log_info("Limpeza concluída")
     
-    return(dados)
+    # -------------------------------------------------------------------------
+    # Retorna conjunto de dados bruto para próxima etapa
+    # -------------------------------------------------------------------------
+    return(data_cleaning)
     
   }, error = function(e) {
-    log_error("Erro na limpeza global")
-    log_error(e$message)
-    stop(e)
+    
+    # -------------------------------------------------------------------------
+    # Tratamento de erros da etapa de ingestão
+    # -------------------------------------------------------------------------
+    # Qualquer erro ocorrido durante a ingestão é encaminhado para o handler
+    # centralizado do pipeline para registro e tratamento apropriado.
+    # -------------------------------------------------------------------------
+    handle_error(e, step = "Limpeza de Dados")
+    stop(e)   
+    
+  }, warning = function(w) {
+    
+    # -------------------------------------------------------------------------
+    # Tratamento de avisos
+    # -------------------------------------------------------------------------
+    # Avisos são registrados no log, mas não interrompem a execução do pipeline.
+    # -------------------------------------------------------------------------
+    log_warn("Aviso durante limpeza: {w$message}")
+    
+    invokeRestart("muffleWarning")
   })
 }
