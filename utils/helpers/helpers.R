@@ -51,7 +51,7 @@
 # ======================================================================
 
 # ---------------------------------------------------------
-# 1. Função para teste de exixtência ou nulidade de arquivo
+# Função para teste de exixtência ou nulidade de arquivo
 # ---------------------------------------------------------
 check_file_exists <- function(path) {
   
@@ -67,7 +67,7 @@ check_file_exists <- function(path) {
 }
 
 # --------------------------------------------------------
-# 2. Função Retry
+# Função Retry
 # --------------------------------------------------------
 retry_manual <- function(func, tentativas = 3, espera = 5) {
   
@@ -86,7 +86,7 @@ retry_manual <- function(func, tentativas = 3, espera = 5) {
 }
 
 # --------------------------------------------------------
-# 3. Função wrapper para execução segura.
+# Função wrapper para execução segura.
 # --------------------------------------------------------
 safe_run <- function(expr, etapa) {
   tryCatch(
@@ -99,7 +99,7 @@ safe_run <- function(expr, etapa) {
 }
 
 # --------------------------------------------------------
-# 4. Função para log de início e fim de etapas
+# Função para log de início e fim de etapas
 # --------------------------------------------------------
 log_stage_start <- function(stage) {
   log_info(paste("Iniciando etapa:", stage))
@@ -110,7 +110,7 @@ log_stage_end <- function(stage) {
 }
 
 # --------------------------------------------------------
-# 4. Função para persistências dos dados
+# Função para persistências dos dados
 # --------------------------------------------------------
 save_processed_data <- function(data, path) {
   

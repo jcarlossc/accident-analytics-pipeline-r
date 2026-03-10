@@ -75,7 +75,7 @@ setup_logger <- function() {
   tryCatch({
     
     # --------------------------------------------------------
-    # 3. Ler arquivos de configuração
+    # Ler arquivos de configuração
     # --------------------------------------------------------
     config_path <- suppressWarnings(
       yaml::read_yaml("config/paths.yaml")
@@ -86,7 +86,7 @@ setup_logger <- function() {
     )  
     
     # --------------------------------------------------------
-    # 4. Validar campos obrigatórios
+    # Validar campos obrigatórios
     # --------------------------------------------------------
     if (is.null(config_logging$logging$level)) {
       stop("Campo logging.level não encontrado em logging.yaml")
@@ -97,7 +97,7 @@ setup_logger <- function() {
     }
     
     # --------------------------------------------------------
-    # 5. Configurar logger
+    # Configurar logger
     # --------------------------------------------------------
     # Nível mínimo de log
     log_threshold(config_logging$logging$level)
@@ -117,7 +117,7 @@ setup_logger <- function() {
   },
   
   # ----------------------------------------------------------
-  # 6. Tratamento de ERRO
+  # Tratamento de ERRO
   # ----------------------------------------------------------
   error = function(e) {
     
@@ -135,7 +135,7 @@ setup_logger <- function() {
   },
   
   # ----------------------------------------------------------
-  # 7. Avisos
+  # Avisos
   # ----------------------------------------------------------
   warning = function(w) {
     message("Aviso no setup_logger: ", w$message)
