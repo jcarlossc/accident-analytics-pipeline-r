@@ -107,6 +107,7 @@ setup_logger()
 main <- function() {
   
   log_info("### Início do pipeline ###")
+  message("### Início do pipeline ###")
   
   path_raw <- config_paths$data$raw
   
@@ -119,12 +120,14 @@ main <- function() {
   # para posterior processamento.
   # =============================================================================
   log_stage_start("Ingestão")
+  message("Início da Ingestão")
   
   data_ingest_tibble <- safe_run(
     retry_manual(function() ingest_data(path_raw)),
     "Ingestão"
   )
   log_stage_end("Ingestão")
+  message("Término da Ingestão")
   
   # =============================================================================
   # SUB-PIPELINE 2: Padronização de dados
@@ -133,12 +136,14 @@ main <- function() {
   # conversão de tipos de dados quando necessário.
   # =============================================================================
   log_stage_start("Padronização")
+  message("Início da padronização")
   
   data_standard_tibble <- safe_run(
     standardization_data(data_ingest_tibble),
     "Padronização"
   )
   log_stage_end("Padronização")
+  message("Término da padronização")
   
   # =============================================================================
   # SUB-PIPELINE 3: Limpeza de dados
@@ -147,12 +152,14 @@ main <- function() {
   # de valores ausentes ou inválidos.
   # =============================================================================
   log_stage_start("Limpeza")
+  message("Início da limpeza")
   
   data_clean_tibble <- safe_run(
     clean_data(data_standard_tibble),
     "Limpeza"
   )
   log_stage_end("Limpeza")
+  message("Término da limpeza")
   
   # =============================================================================
   # SUB-PIPELINE 4: Validação de dados
@@ -161,11 +168,14 @@ main <- function() {
   # para o dataset antes de sua persistência final.
   # =============================================================================
   log_stage_start("Validação")
+  message("Início da validação")
+  
   data_validation <- safe_run(
     validate_data(data_clean_tibble),
     "Validação"
   )
   log_stage_end("Validação")
+  message("Término da validação")
   
   # =============================================================================
   # SUB-PIPELINE 5: Persistência de dados
@@ -173,6 +183,8 @@ main <- function() {
   # Caso a validação seja concluída com sucesso, o dataset limpo é
   # salvo no diretório de dados processados em formato CSV.
   # =============================================================================
+  message("Início da persistência dos dados")
+  
   if (data_validation) {
     save_processed_data(
       data_clean_tibble,
@@ -180,7 +192,10 @@ main <- function() {
     )
   }
   
+  message("Término da persistência dos dados")
+  
   log_info("### Fim do pipeline ###")
+  message("### Fim do pipeline ###")
 }
 
 
