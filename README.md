@@ -137,7 +137,7 @@ config:
 logs:
   file: "logs/pipeline.log"
 ```
-## 📌 Documentação das Colunas
+## 📌 Documentação das Colunas (alguns exemplos)
 | Coluna |	Tipo | Descrição |
 |--------|------|-----------|
 | data |	Date | Data do acidente |
