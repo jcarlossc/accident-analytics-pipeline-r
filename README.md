@@ -170,10 +170,19 @@ Exemplo de validações:
 ## 📌 Sistema de Logging
 O pipeline utiliza logger para registrar eventos.
 
-Exemplo:
+Alguns exemplo:
 ```
-INFO  | Iniciando pipeline
-INFO  | Ingestão concluída
+[2026-03-11 11:57:20.316394] INFO - Logger configurado com sucesso.
+[2026-03-11 11:57:21.019533] INFO - ### Início do pipeline ###
+[2026-03-11 11:57:21.03478] INFO - Iniciando etapa: Ingestão
+[2026-03-11 11:57:21.850072] INFO - Ingestão do arquivo: data/data_raw/acidentes_recife_2019.csv
+[2026-03-11 11:57:40.199023] INFO - Arquivo lido com sucesso.
+[2026-03-11 11:57:40.208219] INFO - Finalizando etapa: Ingestão
+[2026-03-11 11:57:40.261496] INFO - Iniciando etapa: Padronização
+[2026-03-11 11:57:41.109296] INFO - Iniciando padronização das colunas e conversão de tipos
+[2026-03-11 11:57:41.114384] INFO - Linhas recebidas: 12062
+[2026-03-11 11:57:41.120347] INFO - Números de colunas: 42
+[2026-03-11 11:57:41.649845] INFO - Nomes de colunas padronizados
 ```
 Logs armazenados em:
 ```
