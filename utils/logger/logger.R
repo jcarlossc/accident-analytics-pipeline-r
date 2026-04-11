@@ -108,6 +108,20 @@ setup_logger <- function() {
       format = config_logging$format$format
     ))
     
+    log_path <- config_paths$logs$file
+    
+    # Validação do config_paths$logs$file
+    if (is.null(log_path) || !is.character(log_path) || length(log_path) != 1) {
+      stop("logs$file inválido no YAML")
+    }
+
+    # Cria diretório, caso não exista
+    log_dir <- dirname(log_path)
+    
+    if (!dir.exists(log_dir)) {
+      dir.create(log_dir, recursive = TRUE)
+    }
+    
     # Define para onde o log será enviado.
     log_appender(appender_file(config_path$logs$file))
     
