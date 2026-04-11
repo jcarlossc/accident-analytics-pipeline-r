@@ -1,25 +1,23 @@
-# ======================================================================
+# ----------------------------------------------------------------------
 # Arquivo: data_clean.R
 # Projeto: Sistema de Ingestão, Padronização, Limpeza e 
 # Validação de Dados de Acidentes - Recife - 2019
 # Autor: Carlos da Costa
 # Localização: Recife, Pernambuco - Brasil
 # Data de criação: 06/03/2026
-# Última modificação: 06/03/2026
+# Última modificação: 11/04/2026
 # Versão: 1.0.0
 # Ambiente: development
 #
 # ----------------------------------------------------------------------
-# DESCRIÇÃO
-# ----------------------------------------------------------------------
+# Descrição:
 # Este módulo contém a função responsável pela limpeza global do dataset
 # após a etapa de padronização. A função aplica regras de tratamento de
 # valores inválidos, substituição de valores ausentes e remoção de
 # registros inconsistentes.
 #
 # ----------------------------------------------------------------------
-# PRINCIPAIS REGRAS DE LIMPEZA
-# ----------------------------------------------------------------------
+# Regras de limpeza:
 # - Conversão de valores inválidos para seus respectivos tipos
 # - Normalização de textos vazios ou ignorados
 # - Substituição de NA em variáveis numéricas quando aplicável
@@ -27,8 +25,7 @@
 # - Remoção de registros com hora inválida
 #
 # ----------------------------------------------------------------------
-# DEPENDÊNCIAS
-# ----------------------------------------------------------------------
+# Dependências:
 # - dplyr
 # - stringr
 # - lubridate
@@ -36,15 +33,12 @@
 # - logger
 #
 # ----------------------------------------------------------------------
-# TRATAMENTO DE ERROS
-# ----------------------------------------------------------------------
+# Tratamento de erros:
 # - Falhas estruturais interrompem o pipeline
 # - Eventos são registrados via logger
 # - tryCatch garante rastreabilidade de erros
-# ======================================================================
+# ----------------------------------------------------------------------
 
-# -----------------------------------------------------------------------------
-# 1. Carregamento de dependências
 # -----------------------------------------------------------------------------
 # Pacotes utilizados para transformação e limpeza dos dados durante o pipeline
 # -----------------------------------------------------------------------------
@@ -55,7 +49,7 @@ library(hms)
 library(logger)
 
 # -----------------------------------------------------------------------------
-# 2. Função de limpeza dos dados
+# Função de limpeza dos dados
 # -----------------------------------------------------------------------------
 # Responsável por aplicar regras gerais de limpeza e tratamento de dados
 # ausentes no dataset.

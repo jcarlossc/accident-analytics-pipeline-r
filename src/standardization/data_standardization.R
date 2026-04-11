@@ -1,17 +1,16 @@
-# ======================================================================
+# ----------------------------------------------------------------------
 # Arquivo: data_standardization.R
 # Projeto: Sistema de Ingestão, Padronização, Limpeza e 
 # Validação de Dados de Acidentes - Recife - 2019
 # Autor: Carlos da Costa
 # Localização: Recife, Pernambuco - Brasil
 # Data de criação: 04/03/2026
-# Última modificação: 04/03/2026
+# Última modificação: 11/04/2026
 # Versão: 1.0.0
 # Ambiente: development
 #
 # ----------------------------------------------------------------------
-# DESCRIÇÃO
-# ----------------------------------------------------------------------
+# Descrição:
 # Módulo responsável pela padronização estrutural e conversão de tipos
 # dos dados ingeridos.
 #
@@ -22,8 +21,7 @@
 #   - Normalização de variáveis textuais
 #
 # ----------------------------------------------------------------------
-# ESCOPO
-# ----------------------------------------------------------------------
+# Escopo:
 # Este módulo NÃO:
 #   - Remove outliers
 #   - Aplica regras de negócio
@@ -34,8 +32,7 @@
 # mínima antes da etapa de validação ou transformação analítica.
 #
 # ----------------------------------------------------------------------
-# DEPENDÊNCIAS
-# ----------------------------------------------------------------------
+# Dependências:
 # - dplyr
 # - stringr
 # - lubridate
@@ -43,31 +40,26 @@
 # - logger
 #
 # ----------------------------------------------------------------------
-# PADRÕES ADOTADOS
-# ----------------------------------------------------------------------
+# Padrões adotados:
 # - Nomes de colunas em snake_case
 # - Datas no formato Date (ISO 8601)
 # - Horas no formato hms
 # - Textos padronizados com capitalização controlada
 #
 # ----------------------------------------------------------------------
-# TRATAMENTO DE ERROS
-# ----------------------------------------------------------------------
+# Tratamento de erros:
 # - Falhas estruturais interrompem a execução
 # - Eventos são registrados via logger
 # - tryCatch garante rastreabilidade
 #
 # ----------------------------------------------------------------------
-# INTEGRAÇÃO
-# ----------------------------------------------------------------------
+# Integração:
 # Este módulo é executado após a ingestão (data_ingest.R)
 # e antes da limpeza.
 #
 # Depende da inicialização prévia do sistema de logging.
-# ======================================================================
+# ----------------------------------------------------------------------==
 
-# -----------------------------------------------------------------------------
-# 1. Carregamento de dependências
 # -----------------------------------------------------------------------------
 # Pacotes utilizados para transformação, padronização e registro de logs
 # durante a etapa de tratamento estrutural dos dados.
@@ -79,7 +71,7 @@ library(hms)
 library(logger)
 
 # -----------------------------------------------------------------------------
-# 2. Função de padronização dos dados
+# Função de padronização dos dados
 # -----------------------------------------------------------------------------
 # Responsável por padronizar nomes de colunas, converter tipos de dados
 # e normalizar campos textuais do dataset.

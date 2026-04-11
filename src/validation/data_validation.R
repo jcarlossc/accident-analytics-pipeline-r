@@ -1,17 +1,16 @@
-# ==========================================================
+# ---------------------------------------------------------
 # Script: data_validation.R
 # Projeto: Sistema de Ingestão, Padronização, Limpeza e 
 # Validação de Dados de Acidentes - Recife - 2019
 # Autor: Carlos da Costa
 # Localização: Recife, Pernambuco - Brasil
 # Data de criação: 06/03/2026
-# Última modificação: 06/03/2026
+# Última modificação: 11/04/2026
 # Versão: 1.0.0
 # Ambiente: development
 #
 # ---------------------------------------------------------
-# DESCRIÇÃO:
-# ---------------------------------------------------------
+# Descrição:
 # Este script contém funções responsáveis pela validação
 # estrutural e semântica do dataset de acidentes após a
 # etapa de limpeza de dados (data_clean).
@@ -21,9 +20,7 @@
 # carregamento em banco de dados.
 #
 # ---------------------------------------------------------
-# VALIDAÇÕES IMPLEMENTADAS:
-# ---------------------------------------------------------
-#
+# Validações implementadas:
 # 1. Estrutura do dataset
 #    - Verifica se colunas possuem o tipo correto
 #    - Data deve ser classe Date
@@ -49,28 +46,24 @@
 #   erro caso alguma regra crítica seja violada
 #
 # ---------------------------------------------------------
-# DEPENDÊNCIAS:
-# ---------------------------------------------------------
+# Dependências:
 #   logger
 #   hms
 #
 # ---------------------------------------------------------
-# OBSERVAÇÕES:
-# ---------------------------------------------------------
+# Observações:
 #   Esta etapa deve ser executada após data_clean.R
 #   e antes da etapa de análise ou armazenamento.
 #
-# ==========================================================
+# ---------------------------------------------------------
 
-# -----------------------------------------------------------------------------
-# 1. Carregamento de dependências
 # -----------------------------------------------------------------------------
 # Pacotes utilizados para registro de logs e validação de campos temporais.
 # -----------------------------------------------------------------------------
 library(logger)
 library(hms)
 
-# 2. Função de validação dos dados
+# Função de validação dos dados
 # -----------------------------------------------------------------------------
 # Responsável por validar estrutura, tipos e consistência dos dados
 # antes da persistência final do pipeline.

@@ -1,17 +1,16 @@
-# ======================================================================
+# ----------------------------------------------------------------------
 # Arquivo: data_ingest.R
 # Projeto: Sistema de Ingestão, Padronização, Limpeza e 
 # Validação de Dados de Acidentes - Recife - 2019
 # Autor: Carlos da Costa
 # Localização: Recife, Pernambuco - Brasil
 # Data de criação: 04/03/2026
-# Última modificação: 04/03/2026
+# Última modificação: 11/04/2026
 # Versão: 1.0.0
 # Ambiente: development
 #
 # ----------------------------------------------------------------------
-# DESCRIÇÃO
-# ----------------------------------------------------------------------
+# Descrição:
 # Módulo responsável pela ingestão de dados externos no pipeline.
 #
 # Este script implementa a função `ingest_data()`, cuja finalidade é:
@@ -23,8 +22,7 @@
 #   - Delegar tratamento de falhas ao error_handler
 #
 # ----------------------------------------------------------------------
-# RESPONSABILIDADES
-# ----------------------------------------------------------------------
+# Responsabilidades:
 # - Ler dados brutos (raw data)
 # - Garantir integridade estrutural mínima
 # - Não aplicar transformações de negócio
@@ -34,30 +32,25 @@
 # corretamente para as próximas etapas do pipeline.
 #
 # ----------------------------------------------------------------------
-# DEPENDÊNCIAS
-# ----------------------------------------------------------------------
+# Dependências:
 # - readr
 # - glue
 # - logger
 # - error_handler (módulo interno)
 #
 # ----------------------------------------------------------------------
-# TRATAMENTO DE ERROS
-# ----------------------------------------------------------------------
+# Tratamento de erros:
 # - Erros críticos interrompem a execução
 # - Avisos são registrados no log
 # - Exceções são delegadas para handle_error()
 #
 # ----------------------------------------------------------------------
-# INTEGRAÇÃO
-# ----------------------------------------------------------------------
+# Integação:
 # Utilizado pela etapa principal do pipeline ( main.R).
 # Depende da inicialização prévia do sistema de logging.
 #
-# ======================================================================
-
-# -----------------------------------------------------------------------------
-# 1. Carregamento de dependências
+# ----------------------------------------------------------------------
+#
 # -----------------------------------------------------------------------------
 # Pacotes necessários para leitura de dados e geração de logs estruturados
 # durante a execução do pipeline.
@@ -67,7 +60,7 @@ library(glue)
 library(logger)
 
 # -----------------------------------------------------------------------------
-# 2. Função de ingestão de dados
+# Função de ingestão de dados
 # -----------------------------------------------------------------------------
 # Responsável por carregar o dataset bruto a partir do caminho informado.
 #
