@@ -5,7 +5,7 @@
 # Autor: Carlos da Costa
 # Localização: Recife, Pernambuco - Brasil
 # Data de criação: 03/03/2026
-# Última modificação: 03/03/2026
+# Última modificação: 11/04/2026
 # Versão: 1.0.0
 # Ambiente: development
 #
@@ -35,10 +35,10 @@
 # ----------------------------------------------------------------
 # Este módulo deve ser importado antes da execução do pipeline
 # principal (main.R).
-# ================================================================
+# ----------------------------------------------------------------
 
 # --------------------------------------------------------
-# 1. Pacotes utilizados
+# Pacotes utilizados
 # --------------------------------------------------------
 library(logger)
 library(glue)
@@ -75,7 +75,6 @@ handle_error <- function(e, step = "DESCONHECIDO") {
   finally = {
     message("Execução será interrompida.")
   })
-  
   
   # ----------------------------------------------------------
   # Interrompe execução de forma controlada
