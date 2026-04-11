@@ -10,14 +10,14 @@
 # Ambiente: development
 #
 # ----------------------------------------------------------------------
-# DESCRIÇÃO
+# Descrição:
 # Este módulo contém a função responsável pela limpeza global do dataset
 # após a etapa de padronização. A função aplica regras de tratamento de
 # valores inválidos, substituição de valores ausentes e remoção de
 # registros inconsistentes.
 #
 # ----------------------------------------------------------------------
-# PRINCIPAIS REGRAS DE LIMPEZA
+# Regras de limpeza:
 # - Conversão de valores inválidos para seus respectivos tipos
 # - Normalização de textos vazios ou ignorados
 # - Substituição de NA em variáveis numéricas quando aplicável
@@ -25,7 +25,7 @@
 # - Remoção de registros com hora inválida
 #
 # ----------------------------------------------------------------------
-# DEPENDÊNCIAS
+# Dependências:
 # - dplyr
 # - stringr
 # - lubridate
@@ -33,8 +33,7 @@
 # - logger
 #
 # ----------------------------------------------------------------------
-# TRATAMENTO DE ERROS
-# ----------------------------------------------------------------------
+# Tratamento de erros:
 # - Falhas estruturais interrompem o pipeline
 # - Eventos são registrados via logger
 # - tryCatch garante rastreabilidade de erros
