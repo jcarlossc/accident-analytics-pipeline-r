@@ -1,16 +1,15 @@
-# ======================================================================
+# ----------------------------------------------------------------------
 # Arquivo: helpers.R
 # Projeto: Sistema de Ingestão, Padronização, Limpeza e 
 # Validação de Dados de Acidentes - Recife - 2019
 # Autor: Carlos da Costa
 # Localização: Recife, Pernambuco - Brasil
 # Data de criação: 03/03/2026
-# Última atualização: 03/03/2026
+# Última atualização: 11/04/2026
 # Versão: 1.0.0
 #
 # ----------------------------------------------------------------------
-# DESCRIÇÃO
-# ----------------------------------------------------------------------
+# Descrição:
 # Módulo de funções auxiliares (helpers) utilizadas em múltiplas partes
 # do pipeline.
 #
@@ -23,32 +22,28 @@
 # independentes da lógica específica do pipeline.
 #
 # ----------------------------------------------------------------------
-# RESPONSABILIDADES
-# ----------------------------------------------------------------------
+# Responsabilidades:
 # - Evitar duplicação de código
 # - Centralizar validações comuns
 # - Oferecer mecanismos simples de tolerância a falhas
 # - Mecanismo de logs e persistência de dados
 #
 # ----------------------------------------------------------------------
-# BOAS PRÁTICAS
-# ----------------------------------------------------------------------
+# Boas práticas:
 # - Não incluir regras de negócio neste módulo.
 # - Manter funções puras sempre que possível.
 # - Evitar dependências externas desnecessárias.
 #
 # ----------------------------------------------------------------------
-# DEPENDÊNCIAS
-# ----------------------------------------------------------------------
+# Dependências:
 # Nenhuma dependência obrigatória.
 # (Pode integrar com logger ou error_handler se necessário.)
 #
 # ----------------------------------------------------------------------
-# INTEGRAÇÃO
-# ----------------------------------------------------------------------
+# Integração:
 # Este módulo pode ser utilizado por qualquer etapa do pipeline.
 # 
-# ======================================================================
+# ----------------------------------------------------------------------
 
 # ---------------------------------------------------------
 # Função para teste de exixtência ou nulidade de arquivo

@@ -10,59 +10,23 @@
 # Ambiente padrão: development
 #
 # ----------------------------------------------------------------------
-# DESCRIÇÃO
-# ----------------------------------------------------------------------
+# Descrição:
 # Módulo responsável pela configuração centralizada do sistema de logs
 # do pipeline.
 #
 # Este script define:
-#   - Nível de log (INFO, WARN, ERROR, DEBUG)
+#   - Nível de log (INFO)
 #   - Formato das mensagens
 #   - Saída (console e/ou arquivo)
 #   - Timezone e timestamp
 #   - Política de sobrescrita de arquivos
 #
 # O comportamento do logger é configurado dinamicamente via config.yaml.
-#
 # ----------------------------------------------------------------------
-# DEPENDÊNCIAS
-# ----------------------------------------------------------------------
-# - logger
-# - glue
-# - yaml
-#
-# ----------------------------------------------------------------------
-# RESPONSABILIDADES
-# ----------------------------------------------------------------------
-# - Inicializar o logger antes da execução do pipeline
-# - Garantir padronização das mensagens
-# - Evitar duplicação de configuração em outros módulos
-#
-# ----------------------------------------------------------------------
-# BOAS PRÁTICAS
-# ----------------------------------------------------------------------
-# - Nunca utilizar print() em produção.
-# - Utilizar níveis adequados (INFO para fluxo normal, ERROR para falhas).
-# - Não registrar dados sensíveis.
-#
-# ----------------------------------------------------------------------
-# INTEGRAÇÃO
-# ----------------------------------------------------------------------
-# Este módulo deve ser carregado no início do main.R:
-#
-#   source("R/logger.R")
-#   init_logger(config)
-#
-# ----------------------------------------------------------------------
-# OBSERVAÇÃO
-# ----------------------------------------------------------------------
-# Qualquer alteração no formato do log deve ser refletida no
-# config.yaml e documentada no README do projeto.
-# ======================================================================
 
-# --------------------------------------------------------
-# 1. Pacotes utilizados
-# --------------------------------------------------------
+# ------------------------------------------------------
+# Pacotes utilizados
+# ------------------------------------------------------
 library(logger)
 library(glue)
 library(yaml)
