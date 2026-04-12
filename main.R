@@ -180,6 +180,15 @@ main <- function() {
   message("Início da persistência dos dados")
   
   if (data_validation) {
+    
+    # Garante que o diretório existe
+    dir_path <- dirname(config_paths$data$processed)
+    
+    if (!dir.exists(dir_path)) {
+      dir.create(dir_path, recursive = TRUE)
+      message("Diretório criado: ", dir_path)
+    }
+    
     save_processed_data(
       data_clean_tibble,
       config_paths$data$processed
@@ -194,4 +203,3 @@ main <- function() {
 
 
 main()
-
